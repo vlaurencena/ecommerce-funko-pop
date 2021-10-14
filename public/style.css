@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: aliceblue;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 1rem;
+    background-color: gainsboro;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+}
+
+.navbar ul li {
+    display: inline-block;
+    margin: 0 1rem;
+}
+
+.navbar__login-button {
+
+}
+
