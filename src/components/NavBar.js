@@ -1,9 +1,9 @@
 import React from "react";
 
-function NavBar() {
-    return <>
+const NavBar = () => {
+    return (
         <nav className="navbar">
-            <a href="index.html"><img src="logo-open.png" alt="" /></a>
+            <a className="navbar__icon" href="index.html"><img src="logo-open.png" alt="Logo de OPEN" /></a>
             <ul>
                 <li><a href="#">Vehículos</a></li>
                 <li><a href="#">Indumentaria</a></li>
@@ -12,7 +12,7 @@ function NavBar() {
             </ul>
             <a className="navbar__login-button" href="#">Login</a>
         </nav>
-    </>
+    )
 }
 
 export default NavBar;
