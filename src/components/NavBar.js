@@ -1,8 +1,6 @@
-import React from "react";
 import CartWidget from "./CartWidget";
 
-
-const NavBar = () => {
+const NavBar = (props) => {
     return (
         <nav className="navbar">
             <a className="navbar__icon" href="index.html"><img src="logo-open.png" alt="Logo de OPEN" /></a>
