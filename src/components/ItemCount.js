@@ -1,19 +1,19 @@
 import { useState } from 'react';
 
-const ItemCount = ({ stock, initial }) => {
+const ItemCount = (props) => {
 
-    const [itemCount, setItemCount] = useState(initial);
+    const [itemCount, setItemCount] = useState(props.initial);
 
     const removeItem = () => {
         setItemCount(Math.max(itemCount - 1, 0));
     }
 
     const addItem = () => {
-        setItemCount(Math.min(itemCount + 1, stock));
+        setItemCount(Math.min(itemCount + 1, props.stock));
     }
 
     const onAdd = () => {
-        console.log("Acabas de agregar " + itemCount + " productos a tu carrito")
+        console.log("Acabas de agregar " + itemCount + " " + props.title + " a tu carrito")
     }
 
     return (

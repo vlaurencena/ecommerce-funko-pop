@@ -6,7 +6,12 @@ const ItemList = (props) => {
         <>
             {props.items.map((item) => {
                 return (
-                    <Item key={item.id} title={item.title} pictureUrl={item.pictureUrl} stock={item.stock} />
+                    <Item
+                        key={item.id}
+                        title={item.title}
+                        imgUrl={item.imgUrl}
+                        stock={item.stock}
+                    />
                 );
             })}
         </>
