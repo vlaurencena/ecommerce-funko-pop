@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const ItemCount = ({ stock, initial, onAdd }) => {
+const ItemCount = ({ stock, initial }) => {
 
     const [itemCount, setItemCount] = useState(initial);
 
@@ -12,9 +12,12 @@ const ItemCount = ({ stock, initial, onAdd }) => {
         setItemCount(Math.min(itemCount + 1, stock));
     }
 
+    const onAdd = () => {
+        console.log("Acabas de agregar " + itemCount + " productos a tu carrito")
+    }
+
     return (
         <div className="item-count-container bg-lightgray">
-            <p>Camisa Tiger</p>
             <div className="item-count-control">
                 <button className="material-icons" onClick={removeItem}>
                     remove
