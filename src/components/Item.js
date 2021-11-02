@@ -1,18 +1,15 @@
 import ItemCount from "./ItemCount";
 
 const Item = (props) => {
+    const itemLink = `/${props.category}/${props.universe}/${props.id}`;
+
     return (
-        <div className="item-card">
-            <div className="item-card__item-title">{props.title}</div>
-            <img src={props.imgUrl} alt="" />
-            <a className="item-card__view-product-detail-link" href="">Ver detalle de producto</a>
-            <div>Stock disponible: {props.stock}</div>
-            <ItemCount
-                stock={props.stock}
-                initial={0}
-                title={props.title}
-            />
-        </div>
+        <div className="Item-card">
+            <img className="Item-card__img" src={props.imgUrl} alt="" />
+            <div className="Item-card__title">{props.title}</div>
+            <div className="Item-card__price">${props.price}</div>
+            <a className="Item-card__detail-link" href={itemLink}> View product details</a>
+        </div >
     )
 }
 

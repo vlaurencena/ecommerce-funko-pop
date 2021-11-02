@@ -8,10 +8,13 @@ const ItemList = (props) => {
                 return (
                     <Item
                         key={item.id}
+                        id={item.id}
+                        imgUrl={`/media/products/${item.id}/${item.imgUrl}`}
                         title={item.title}
-                        imgUrl={item.imgUrl}
-                        stock={item.stock}
-                    />
+                        price={item.price}
+                        category={item.category}
+                        universe={item.universe}
+                        />
                 );
             })}
         </>
