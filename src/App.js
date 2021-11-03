@@ -17,15 +17,15 @@ const App = () => {
           <ItemListContainer />
         </Route>
 
-        <Route path="/all-products/:category/" exact>
+        <Route path="/category/:categoryId/" exact>
           <ItemListContainer />
         </Route>
 
-        <Route path="/all-products/:category/:universe/" exact>
+        <Route path="/category/:categoryId/:universeId/" exact>
           <ItemListContainer />
         </Route>
 
-        <Route path="/all-products/:category/:universe/:id" exact>
+        <Route path="/item/:id" exact>
           <ItemDetailContainer />
         </Route>
       </Switch>

@@ -9,16 +9,15 @@ const ItemListContainer = (props) => {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(["Loading List..."]);
 
-    const { category, universe } = useParams();
-    console.log(category);
+    const { categoryId , universeId } = useParams();
 
     const filterProducts = () => {
         if (props.id) {
-            return products.filter((product) => product.universe === universe && product.id !== props.id);
-        } else if (universe) {
-            return products.filter((product) => product.universe === universe);
-        } else if (category) {
-            return products.filter((product) => product.category === category);
+            return products.filter((product) => product.universe === universeId && product.id !== props.id);
+        } else if (universeId) {
+            return products.filter((product) => product.universe === universeId);
+        } else if (categoryId) {
+            return products.filter((product) => product.category === categoryId);
         } else {
             return products;
         }
