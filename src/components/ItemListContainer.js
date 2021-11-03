@@ -9,7 +9,7 @@ const ItemListContainer = (props) => {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(["Loading List..."]);
 
-    const { category, universe, id } = useParams();
+    const { category, universe } = useParams();
     console.log(category);
 
     const filterProducts = () => {
@@ -34,21 +34,19 @@ const ItemListContainer = (props) => {
 
     useEffect(() => {
         getData()
-            .then(function(data) {
+            .then(function (data) {
                 setItems(data);
                 data.length === 0 && setMessage("Sorry, we have no products under this selection.");
             });
     })
 
     if (items.length === 0) {
-        return <div className = "item-list-container loading" > { message } < /div>
+        return <div className="item-list-container loading"> {message} </div>
     } else {
-        return ( <
-            div className = "item-list-container" >
-            <
-            ItemList items = { items }
-            /> <
-            /div>
+        return (
+            <div className="item-list-container">
+                <ItemList items={items} />
+            </div>
         )
     }
 }

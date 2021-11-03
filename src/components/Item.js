@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const Item = (props) => {
-    const itemLink = `all-products/${props.category}/${props.universe}/${props.id}`;
+    const itemLink = `${props.category}/${props.universe}/${props.id}`;
 
     const [imageUrl, setImageUrl] = useState(`${props.imgUrl}_0.jpg`);
 
@@ -27,7 +27,7 @@ const Item = (props) => {
             </a>
             <a className="Item-card__item-link Item-card__title" href={itemLink}>{props.title}</a>
             <div className="Item-card__price">${props.price}</div>
-            <a className="Item-card__detail-link" href="#"> Add to cart</a>
+            <button className="Item-card__detail-link"> Add to cart</button>
         </div >
     )
 }

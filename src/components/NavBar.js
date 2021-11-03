@@ -6,7 +6,7 @@ const NavBar = () => {
         <nav className="navbar">
             <a className="navbar__icon" href="/"><img src="/logo-open.png" alt="Logo de OPEN" /></a>
             <div className="navbar__navitagion-links">
-                <NavLink activeClassName="active-category" exact to="/all-products/">All</NavLink>
+                <NavLink activeClassName="active-category" exact to="/all-products">All</NavLink>
                 <NavLink activeClassName="active-category" to="/all-products/movies">Movies</NavLink>
                 <NavLink activeClassName="active-category" to="/all-products/tv">TV</NavLink>
                 <NavLink activeClassName="active-category" to="/all-products/video-games">Video Games</NavLink>
