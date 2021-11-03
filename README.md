@@ -8,6 +8,9 @@ It is an ecommerce dedicated to selling Funko Pop dolls. The products are classi
 * CSS
 * JavaScript
 * React
+## Project preview
+![](project-preview.gif)
+
 ## Installation and Setup Instructions
 Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
 
