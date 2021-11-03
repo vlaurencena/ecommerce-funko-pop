@@ -2,6 +2,15 @@ import Item from "./Item";
 
 const ItemList = (props) => {
 
+
+    const checkIsNew = (releaseDate) => {
+        const currentDate = new Date(2021, 10, 3); // REPLACE WITH ACTUAL DATE
+        const difference = currentDate.getTime() - releaseDate.getTime();
+        const days = Math.ceil(difference / (1000 * 3600 * 24));
+        return days < 60;
+    }
+
+
     return (
         <>
             {props.items.map((item) => {
@@ -14,7 +23,8 @@ const ItemList = (props) => {
                         price={item.price}
                         category={item.category}
                         universe={item.universe}
-                        />
+                        new={checkIsNew(item.release)}
+                    />
                 );
             })}
         </>

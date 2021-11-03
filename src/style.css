@@ -8,6 +8,12 @@ body {
     background-color: aliceblue;
 }
 
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .navbar {
     display: flex;
     justify-content: center;
@@ -89,17 +95,17 @@ body {
 }
 
 .item-list-container {
-    background-color: #468dfb;
+    background-color: #F3F3F7;
     min-width: 1000px;
     max-width: 1400px;
     display: flex;
     flex-wrap: wrap;
-    align-items: stretch;
+    align-items: flex-start;
     justify-content: center;
-    margin: 0 auto;
     padding: 2rem;
     text-align: center;
     margin: auto;
+    flex: 1;
 }
 
 .capitalize {
@@ -107,24 +113,28 @@ body {
 }
 
 .Item-card {
-    min-width: 300px;
-    max-width: 300px;
+    position: relative;
+    width: 300px;
+    min-height: 300px;
     display: flex;
     flex-direction: column;
+    gap: 10px;
     margin: 4px;
     padding: 8px;
     background-color: white;
     border: 1px solid #bacdd8;
     border-radius: 12px;
+    box-shadow: 1px 4px 4px -1px rgb(0 0 0 / 15%);
 }
 
 .Item-card__title {
     font-size: 1.5rem;
-    margin: 1rem 0;
+    margin-top: auto;
 }
 
 .Item-card__img {
     width: 100%;
+    height: 200px;
     object-fit: contain;
     flex: 1;
 }
@@ -140,6 +150,12 @@ body {
     text-decoration: none;
     color: #000000;
     padding: 0.5rem;
+    border: 1px transparent solid;
+}
+
+.Item-card__detail-link:hover {
+    border: 1px black solid;
+    box-shadow: 1px 4px 4px -1px rgb(0 0 0 / 15%);
 }
 
 .item-detail-container {
@@ -176,4 +192,72 @@ body {
 
 .ItemDetail-info-container__about {
     list-style-position: inside;
+}
+
+.Item-card a,
+.Item-card a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+.footer {
+    min-height: 84px;
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #DCDCDC;
+}
+
+a.active-category {
+    color: red;
+}
+
+.Item-card__new:before,
+.Item-card__new:after {
+    background: #0070cc;
+}
+
+.Item-card>.Item-card__flag {
+    position: absolute;
+    z-index: 1;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    color: #fff;
+    left: 1.25rem;
+    top: -1.5rem;
+    width: auto;
+    font-weight: 500;
+    padding: 0.125rem 1.75rem 0.125rem 0.66rem;
+    -webkit-transform-origin: bottom left;
+    transform-origin: bottom left;
+    border-radius: 0 0.2rem 0.2rem 0;
+}
+
+.Item-card>.Item-card__flag:before,
+.Item-card>.Item-card__flag:after {
+    top: 0;
+    left: 0;
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 0 0.2rem 0.2rem 0;
+    width: calc(100% - 1rem);
+    height: 100%;
+    display: block;
+}
+
+.Item-card>.Item-card__flag:before {
+    transform: skewX(30deg);
+}
+
+.Item-card>.Item-card__flag:after {
+    transform: skewX(-30deg);
+}
+
+.navbar__navitagion-links {
+    display: flex;
+    gap: 10px;
+    text-transform: uppercase;
 }

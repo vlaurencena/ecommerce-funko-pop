@@ -1,14 +1,33 @@
-import ItemCount from "./ItemCount";
+import { useState } from "react";
 
 const Item = (props) => {
-    const itemLink = `/${props.category}/${props.universe}/${props.id}`;
+    const itemLink = `all-products/${props.category}/${props.universe}/${props.id}`;
+
+    const [imageUrl, setImageUrl] = useState(`${props.imgUrl}_0.jpg`);
+
+    const handleMouseOver = () => {
+        setImageUrl(`${props.imgUrl}_1.jpg`)
+    }
+    const handleMouseOut = () => {
+        setImageUrl(`${props.imgUrl}_0.jpg`);
+    }
 
     return (
         <div className="Item-card">
-            <img className="Item-card__img" src={props.imgUrl} alt="" />
-            <div className="Item-card__title">{props.title}</div>
+            {props.new && <span className="Item-card__new Item-card__flag">NEW</span>}
+            <a className="Item-card__item-link"
+                href={itemLink}
+            >
+                <img
+                    className="Item-card__img"
+                    src={imageUrl} alt=""
+                    onMouseOver={handleMouseOver}
+                    onMouseOut={handleMouseOut}
+                />
+            </a>
+            <a className="Item-card__item-link Item-card__title" href={itemLink}>{props.title}</a>
             <div className="Item-card__price">${props.price}</div>
-            <a className="Item-card__detail-link" href={itemLink}> View product details</a>
+            <a className="Item-card__detail-link" href="#"> Add to cart</a>
         </div >
     )
 }
