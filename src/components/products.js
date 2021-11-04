@@ -18,7 +18,7 @@ const products = [{
         "universe": "harry-potter",
         "about": ["From Harry Potter, Dobby Snapping his Fingers, as a stylized POP vinyl from Funko!", "Stylized collectable stands 3 ¾ inches tall, perfect for any Harry Potter fan!", "Collect and display all Harry Potter POP! Vinyls!", "Funko POP! is the 2017 Toy of the Year and People's Choice award winner"],
         "imgUrl": ["dobby-snapping-his-fingers_2"],
-        "release": new Date(2021, 10, 2),
+        "release": new Date(2021, 9, 2),
         "price": 19.99,
         "stock": 15
     },

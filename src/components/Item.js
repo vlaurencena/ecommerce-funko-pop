@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const Item = (props) => {
-    const itemLink = `item/${props.id}`;
+    const itemLink = `/item/${props.id}`;
 
     const [imageUrl, setImageUrl] = useState(`${props.imgUrl}_0.jpg`);
 
