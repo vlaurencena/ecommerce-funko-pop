@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Item = (props) => {
     const itemLink = `/item/${props.id}`;
@@ -27,7 +28,7 @@ const Item = (props) => {
             </a>
             <a className="Item-card__item-link Item-card__title" href={itemLink}>{props.title}</a>
             <div className="Item-card__price">${props.price}</div>
-            <button className="Item-card__detail-link"> Add to cart</button>
+            <Link to={itemLink} className="Item-card__detail-link">See details</Link>
         </div >
     )
 }

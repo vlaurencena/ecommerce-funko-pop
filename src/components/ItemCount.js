@@ -1,36 +1,36 @@
-import { useState } from 'react';
+import { Link } from "react-router-dom";
 
 const ItemCount = (props) => {
 
-    const [itemCount, setItemCount] = useState(props.initial);
+    const addToCart =
+        (
+            <div className="item-count-container bg-lightgray">
+                <div className="item-count-control">
+                    <button className="material-icons" onClick={props.removeItem}>
+                        remove
+                    </button>
+                    <div>{props.itemCount}</div>
+                    <button className="material-icons" onClick={props.addItem}>
+                        add
+                    </button>
+                </div>
+                <div className="bg-white">
+                    <button className="add-to-cart-button" onClick={props.onAdd}>Agregar al carrito</button>
+                </div>
+            </div >
+        );
 
-    const removeItem = () => {
-        setItemCount(Math.max(itemCount - 1, 0));
-    }
-
-    const addItem = () => {
-        setItemCount(Math.min(itemCount + 1, props.stock));
-    }
-
-    const onAdd = () => {
-        console.log("Acabas de agregar " + itemCount + " " + props.title + " a tu carrito")
-    }
+    const finishPurchase =
+        (
+            <Link to="/cart" className="item-count-container bg-lightgray">
+                Finish Purchase
+            </Link>
+        );
 
     return (
-        <div className="item-count-container bg-lightgray">
-            <div className="item-count-control">
-                <button className="material-icons" onClick={removeItem}>
-                    remove
-                </button>
-                <div>{itemCount}</div>
-                <button className="material-icons" onClick={addItem}>
-                    add
-                </button>
-            </div>
-            <div className="bg-white">
-                <button className="add-to-cart-button" onClick={onAdd}>Agregar al carrito</button>
-            </div>
-        </div>
+        <>
+            {props.onCart.length === 0 ? addToCart : finishPurchase}
+        </>
     )
 }
 

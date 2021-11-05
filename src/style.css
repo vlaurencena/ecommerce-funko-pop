@@ -35,7 +35,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 4rem;
   background-color: gainsboro;
 }
 
@@ -276,8 +276,12 @@ a.active-category {
   transform: skewX(-30deg);
 }
 
-.navbar__navitagion-links {
+.navbar__navigation-links {
   display: flex;
   gap: 25px;
   text-transform: uppercase;
+}
+
+.navbar__navigation-link-left {
+  margin-right: auto;
 }

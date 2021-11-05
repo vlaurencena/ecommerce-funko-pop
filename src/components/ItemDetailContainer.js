@@ -4,7 +4,6 @@ import products from "./products";
 import { useEffect, useState } from "react";
 import ItemListContainer from "./ItemListContainer";
 
-
 const ItemDetailContainer = () => {
 
   const [selectedItem, setSelectedItem] = useState(undefined);
@@ -15,7 +14,7 @@ const ItemDetailContainer = () => {
   }
 
   const getItem = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         resolve(findItem())
       }, 2000)
