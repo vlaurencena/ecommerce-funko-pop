@@ -1,23 +1,27 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { context } from "../context/CartContext";
 import ItemCount from "./ItemCount";
 
 const ItemDetail = (props) => {
 
+  const { addProduct } = useContext(context);
+
   const [itemCount, setItemCount] = useState(0);
 
-  const removeItem = () => {
+  const removeOneItem = () => {
     setItemCount(Math.max(itemCount - 1, 0));
   }
 
-  const addItem = () => {
+  const addOneItem = () => {
     setItemCount(Math.min(itemCount + 1, props.stock));
   }
 
-  const [onCart, setOnCart] = useState([]);
+  const [onCart, setOnCart] = useState(false);
 
   const onAdd = () => {
-    setOnCart({ "id": props.id, "amount": itemCount });
-    console.log("Acabas de agregar " + itemCount + " " + props.title + " a tu carrito");
+    itemCount !== 0 && addProduct(props.id, itemCount);
+    itemCount !== 0 && setOnCart(true);
+    setOnCart(true);
   }
 
 
@@ -41,8 +45,8 @@ const ItemDetail = (props) => {
         </ul>
         <ItemCount
           onAdd={onAdd}
-          removeItem={removeItem}
-          addItem={addItem}
+          removeOneItem={removeOneItem}
+          addOneItem={addOneItem}
           itemCount={itemCount}
           onCart={onCart}
           stock={props.stock}

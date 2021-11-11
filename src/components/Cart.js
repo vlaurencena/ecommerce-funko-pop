@@ -1,9 +1,12 @@
+import CartListContainer from "./CartListContainer"
+
 const Cart = () => {
+
 return (
-    <div className="home-page">
-        Hi, I am Cart
+    <div className="cart">
+        <CartListContainer />
     </div>
 )
 } 
 
-export default Cart
+export default Cart;

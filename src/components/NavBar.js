@@ -15,7 +15,6 @@ const NavBar = () => {
                 <NavLink activeClassName="active-category" to="/category/random">Random</NavLink>
             </div>
             <CartWidget />
-            <a className="navbar__login-button" href="#">Víctor</a>
         </nav>
     )
 }

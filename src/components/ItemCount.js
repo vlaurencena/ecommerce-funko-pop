@@ -6,11 +6,11 @@ const ItemCount = (props) => {
         (
             <div className="item-count-container bg-lightgray">
                 <div className="item-count-control">
-                    <button className="material-icons" onClick={props.removeItem}>
+                    <button className="material-icons" onClick={props.removeOneItem}>
                         remove
                     </button>
                     <div>{props.itemCount}</div>
-                    <button className="material-icons" onClick={props.addItem}>
+                    <button className="material-icons" onClick={props.addOneItem}>
                         add
                     </button>
                 </div>
@@ -29,7 +29,7 @@ const ItemCount = (props) => {
 
     return (
         <>
-            {props.onCart.length === 0 ? addToCart : finishPurchase}
+            {props.onCart ? finishPurchase : addToCart}
         </>
     )
 }
