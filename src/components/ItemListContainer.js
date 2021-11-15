@@ -27,7 +27,7 @@ const ItemListContainer = (props) => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(filterProducts())
-            }, 2000)
+            }, 10)
         })
     }
 

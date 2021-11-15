@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import Item from "../components/Item";
 import products from "../components/products";
 
 const context = createContext();
@@ -11,26 +12,39 @@ const CustomProvider = ({ children }) => {
 
     useEffect(() => {
         setCartTotal(sumItemsInCart());
+        setCartTotalWorth(sumTotalCartWorth());
+        console.log(products);
+        console.log(cart);
     }, [cart])
 
     const isInCart = (productId) => {
-        return cart.some(product => product.productId === productId);
+        return cart.some(product => product.id === productId);
     }
 
     const addProduct = (productId, quantity) => {
-        if (isInCart(productId)) {
-            const current_product = cart.find(product => product.referenceId === productId);
-            console.log("SI estoy en el cart");
-            current_product.quantity += quantity;
+        console.log(productId);
+        if (isInCart(productId) === false) {
+            console.log("NO ESTOY EN EL CART");
+            const NEW_PRODUCT = products.filter(product => product.id === productId);
+            const CLONED_NEW_PRODUCT = Object.assign({}, ...NEW_PRODUCT);
+            CLONED_NEW_PRODUCT.quantity = quantity;
+            setCart([...cart, CLONED_NEW_PRODUCT]);
+
         } else {
-            const current_product = products.find(product => product.id === productId);
-            current_product.quantity = quantity;
-            setCart([...cart, current_product]);
+            console.log("SÍ ESTOY EN EL CART");
+            let updatedCart = cart.map(product => {
+                if (product.id === productId) {
+                    return {...product, quantity: product.quantity + quantity};
+                } else {
+                    return product;
+                }
+            })
+            setCart([...updatedCart]);
         }
     }
 
     const removeProduct = (productId) => {
-        setCart(cart.filter(product => product.id !== productId))
+        setCart(cart.filter(product => product.id !== productId));
     }
 
     const clearCart = () => {
@@ -51,13 +65,28 @@ const CustomProvider = ({ children }) => {
         };
     }
 
+    const [cartTotalWorth, setCartTotalWorth] = useState(0);
+
+    const sumTotalCartWorth = () => {
+        if (cart.length === 0) {
+            return 0;
+        } else {
+            let acummulator = 0;
+            cart.forEach(element => {
+                acummulator += (element.quantity * element.price);
+            });
+            return acummulator.toFixed(2);
+        };
+    }
+
     const context_value = {
         cart: cart,
         cartTotal: cartTotal,
+        cartTotalWorth: cartTotalWorth,
         addProduct: addProduct,
         removeProduct: removeProduct,
         clearCart: clearCart,
-        isInCart: isInCart,
+        isInCart: isInCart
     }
 
     return (
