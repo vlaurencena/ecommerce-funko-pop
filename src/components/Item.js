@@ -21,7 +21,7 @@ const Item = (props) => {
             >
                 <img
                     className="Item-card__img"
-                    src={imageUrl} alt=""
+                    src={imageUrl} alt={`${props.title} funko pop`}
                     onMouseOver={handleMouseOver}
                     onMouseOut={handleMouseOut}
                 />

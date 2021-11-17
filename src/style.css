@@ -11,7 +11,8 @@ html :before {
 }
 
 body {
-  background-color: aliceblue;
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
 }
 
 button {
@@ -113,7 +114,6 @@ button {
 }
 
 .item-list-container {
-  background-color: #f3f3f7;
   min-width: 1000px;
   max-width: 1400px;
   display: flex;
@@ -249,7 +249,7 @@ a.active-category {
   left: 1.25rem;
   top: -1.5rem;
   width: auto;
-  font-weight: 500;
+  font-weight: 900;
   padding: 0.125rem 1.75rem 0.125rem 0.66rem;
   -webkit-transform-origin: bottom left;
   transform-origin: bottom left;
@@ -294,7 +294,6 @@ a.active-category {
   display: flex;
   justify-content: space-between;
   flex: 1 1;
-  background-color: #ededed;
 }
 
 .cart-list-container {
@@ -311,8 +310,7 @@ a.active-category {
 .cart-item {
   min-width: 100%;
   margin: 0 auto;
-
-  background-color: #468dfb;
+  border-bottom: 2px solid black;
 }
 
 .cart-item__image-container {
@@ -353,9 +351,12 @@ a.active-category {
 .checkout-container {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   gap: 15px;
   width: 20%;
   padding: 10px;
+  background-color: aliceblue;
+  height: fit-content;
 }
 
 .checkout-container__header,
@@ -390,5 +391,17 @@ a.active-category {
   width: 100%;
   position: absolute;
   border-bottom: 2px solid black;
-  bottom: -4px;
+  bottom: -8px;
+}
+
+.page-title-container {
+  margin: 1rem auto;
+}
+
+.page-title-container__secondary {
+  font-weight: 100;
+}
+
+.page-title-container__main {
+  font-size: 4rem;
 }

@@ -1,51 +1,76 @@
 import ItemList from "./ItemList";
 import { useState } from "react";
 import { useEffect } from "react";
-import products from "./products";
 import { useParams } from 'react-router-dom';
+import PageTitle from "./PageTitle";
+import firestore from "../firebase";
+
 
 const ItemListContainer = (props) => {
+
 
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(["Loading List..."]);
 
     const { categoryId, universeId } = useParams();
 
-    const filterProducts = () => {
+    const getProducts = () => {
+
+        const products = firestore.collection("products");
+
+        let query = null;
+
         if (props.id) {
-            return products.filter((product) => product.universe === universeId && product.id !== props.id);
+            query = products.where("__name__", "!=", props.id);
         } else if (universeId) {
-            return products.filter((product) => product.universe === universeId);
+            query = products.where("universe", "==", universeId);
         } else if (categoryId) {
-            return products.filter((product) => product.category === categoryId);
+            query = products.where("category", "==", categoryId);
         } else {
-            return products;
+            query = products;
         }
+
+        const promise = query.get();
+
+        promise
+            .then(result => {
+                setItems(result.docs.map(doc => {
+                    return {id: doc.id, ...doc.data()};
+                }))
+            })
+            .catch(() => {
+                console.error("Error!");
+            })
     }
 
-    const getData = () => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(filterProducts())
-            }, 10)
-        })
-    }
 
     useEffect(() => {
-        getData()
-            .then(function (data) {
-               setItems(data);
-                data.length === 0 && setMessage("Sorry, we have no products under this selection.");
-            });
+        getProducts();
     }, [categoryId, universeId]);
 
     if (items.length === 0) {
-        return <div className="item-list-container loading"> {message} </div>
+        return (
+            <>
+                <PageTitle
+                    main={categoryId}
+                    secondary="SHOP"
+                />
+                <div className="item-list-container loading"> {message} </div>
+            </>
+        )
     } else {
         return (
-            <div className="item-list-container">
-                <ItemList items={items} />
-            </div>
+            <>
+                <PageTitle
+                    main={categoryId ? categoryId : "ALL PRODUCTS"}
+                    secondary="SHOP"
+                />
+                <div className="item-list-container">
+                    <ItemList
+                        items={items}
+                    />
+                </div>
+            </>
         )
     }
 }

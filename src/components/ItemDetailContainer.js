@@ -1,6 +1,6 @@
 import ItemDetail from "./ItemDetail";
 import { useParams } from 'react-router-dom';
-import products from "./products";
+import firestore from "../firebase";
 import { useEffect, useState } from "react";
 import ItemListContainer from "./ItemListContainer";
 
@@ -9,29 +9,28 @@ const ItemDetailContainer = () => {
   const [selectedItem, setSelectedItem] = useState(undefined);
   const { id } = useParams();
 
-  const findItem = () => {
-    return products.find((item) => item.id === id);
-  }
-
   const getItem = () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(findItem())
-      }, 10)
-    })
+
+    firestore
+      .collection("products")
+      .where("__name__", "==", id)
+      .get()
+      .then((querySnapshot) => {
+        const item = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setSelectedItem(...item);
+        console.log(...item);
+      })
+      .catch(() => {
+        console.error("Error!");
+      })
   }
 
   useEffect(() => {
-    getItem()
-      .then(function (item) {
-        setSelectedItem(item);
-      });
-  }, [])
-
-  const SlugToString = (slug) => {
-    let string = slug.replace(/-/g, ' ');
-    return string;
-  }
+    getItem();
+  }, []);
 
   if (selectedItem === undefined) {
     return <div className="loading">Loading Item...</div>
@@ -49,7 +48,7 @@ const ItemDetailContainer = () => {
             about={selectedItem.about}
             stock={10} />
         </div>
-        <h2>More from the <span className="capitalize">{SlugToString(selectedItem.universe)}</span> universe</h2>
+        <h2>Other products you may be interested in</h2>
         <ItemListContainer id={selectedItem.id} />
       </>
     );

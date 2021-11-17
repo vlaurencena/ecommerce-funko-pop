@@ -1,8 +1,19 @@
 import { createContext, useState, useEffect } from "react";
 import Item from "../components/Item";
-import products from "../components/products";
+import firestore from "../firebase";
 
 const context = createContext();
+
+let products = [];
+
+const database = firestore.collection("products").get();
+
+database.then(querySnapshot => {
+    products = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }))
+});
 
 const { Provider } = context;
 
@@ -13,8 +24,6 @@ const CustomProvider = ({ children }) => {
     useEffect(() => {
         setCartTotal(sumItemsInCart());
         setCartTotalWorth(sumTotalCartWorth());
-        console.log(products);
-        console.log(cart);
     }, [cart])
 
     const isInCart = (productId) => {
@@ -22,7 +31,6 @@ const CustomProvider = ({ children }) => {
     }
 
     const addProduct = (productId, quantity) => {
-        console.log(productId);
         if (isInCart(productId) === false) {
             console.log("NO ESTOY EN EL CART");
             const NEW_PRODUCT = products.filter(product => product.id === productId);
@@ -34,7 +42,7 @@ const CustomProvider = ({ children }) => {
             console.log("SÍ ESTOY EN EL CART");
             let updatedCart = cart.map(product => {
                 if (product.id === productId) {
-                    return {...product, quantity: product.quantity + quantity};
+                    return { ...product, quantity: product.quantity + quantity };
                 } else {
                     return product;
                 }

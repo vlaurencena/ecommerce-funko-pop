@@ -4,7 +4,7 @@ import ItemCount from "./ItemCount";
 
 const ItemDetail = (props) => {
 
-  const { addProduct } = useContext(context);
+  const { cart, addProduct } = useContext(context);
 
   const [itemCount, setItemCount] = useState(0);
 
@@ -50,7 +50,7 @@ const ItemDetail = (props) => {
           itemCount={itemCount}
           onCart={onCart}
           stock={props.stock}
-          initial={0}
+          initial={0}          
           title={props.title}
         />
       </div>

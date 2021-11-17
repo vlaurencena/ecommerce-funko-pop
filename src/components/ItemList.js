@@ -4,12 +4,12 @@ const ItemList = (props) => {
 
 
     const checkIsNew = (releaseDate) => {
-        const currentDate = new Date(2021, 10, 3); // REPLACE WITH ACTUAL DATE
-        const difference = currentDate.getTime() - releaseDate.getTime();
-        const days = Math.ceil(difference / (1000 * 3600 * 24));
-        return days < 60;
+        const CURRENT_DATE = new Date(2021, 10, 3); // REPLACE WITH ACTUAL DATE
+        const PRODUCT_RELEASE_DATE = releaseDate.toDate();
+        const DIFFERENCE_IN_MILLISECONDS = CURRENT_DATE - PRODUCT_RELEASE_DATE;
+        const DIFFERENCE_IN_DAYS = DIFFERENCE_IN_MILLISECONDS / 1000 / 60 / 60 / 24;
+        return DIFFERENCE_IN_DAYS < 60;
     }
-
 
     return (
         <>

@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const NavBar = () => {
     return (
         <nav className="navbar">
-            <NavLink exact className="navbar__navigation-link-left" to="/"><img src="/logo-open.png" alt="Logo de OPEN" /></NavLink>
+            <NavLink exact className="navbar__navigation-link-left" to="/"><img src="/logo-open.png" alt="Logo de Funko Town" /></NavLink>
             <div className="navbar__navigation-links">
                 <NavLink activeClassName="active-category" exact to="/all-products">All</NavLink>
                 <NavLink activeClassName="active-category" to="/category/movies">Movies</NavLink>

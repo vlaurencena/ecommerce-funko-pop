@@ -23,13 +23,14 @@ const ItemCount = (props) => {
     const finishPurchase =
         (
             <Link to="/cart" className="item-count-container bg-lightgray">
-                Finish Purchase
+                Go to Cart
             </Link>
         );
 
     return (
         <>
-            {props.onCart ? finishPurchase : addToCart}
+            {addToCart}
+            {props.onCart && finishPurchase}
         </>
     )
 }
