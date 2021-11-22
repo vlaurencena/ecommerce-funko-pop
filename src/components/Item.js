@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 const Item = (props) => {
     const itemLink = `/item/${props.id}`;
 
-    const [imageUrl, setImageUrl] = useState(`${props.imgUrl}_0.jpg`);
+    const [imageUrl, setImageUrl] = useState(`${props.imgUrl}main.jpg`);
 
     const handleMouseOver = () => {
-        setImageUrl(`${props.imgUrl}_1.jpg`)
+        setImageUrl(`${props.imgUrl}secondary.jpg`)
     }
     const handleMouseOut = () => {
-        setImageUrl(`${props.imgUrl}_0.jpg`);
+        setImageUrl(`${props.imgUrl}main.jpg`);
     }
 
     return (

@@ -18,7 +18,7 @@ const ItemList = (props) => {
                     <Item
                         key={item.id}
                         id={item.id}
-                        imgUrl={`/media/products/${item.id}/${item.imgUrl}`}
+                        imgUrl={`/media/products/${item.imgUrl}`}
                         title={item.title}
                         price={item.price}
                         category={item.category}

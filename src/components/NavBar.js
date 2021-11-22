@@ -11,7 +11,7 @@ const NavBar = () => {
                 <NavLink activeClassName="active-category" to="/category/tv">TV</NavLink>
                 <NavLink activeClassName="active-category" to="/category/video-games">Video Games</NavLink>
                 <NavLink activeClassName="active-category" to="/category/music">Music</NavLink>
-                <NavLink activeClassName="active-category" to="/category/non-fiction">Non-fiction</NavLink>
+                <NavLink activeClassName="active-category" to="/category/sports">Sports</NavLink>
                 <NavLink activeClassName="active-category" to="/category/random">Random</NavLink>
             </div>
             <CartWidget />

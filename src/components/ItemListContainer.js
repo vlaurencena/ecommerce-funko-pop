@@ -1,7 +1,6 @@
 import ItemList from "./ItemList";
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import PageTitle from "./PageTitle";
 import firestore from "../firebase";
 
 
@@ -51,20 +50,12 @@ const ItemListContainer = (props) => {
     if (items.length === 0) {
         return (
             <>
-                <PageTitle
-                    main={categoryId}
-                    secondary="SHOP"
-                />
                 <div className="item-list-container loading"> {message} </div>
             </>
         )
     } else {
         return (
             <>
-                <PageTitle
-                    main={categoryId ? categoryId : "ALL PRODUCTS"}
-                    secondary="SHOP"
-                />
                 <div className="item-list-container">
                     <ItemList
                         items={items}

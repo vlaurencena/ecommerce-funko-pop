@@ -29,7 +29,7 @@ const ItemDetail = (props) => {
     <>
       <div className="ItemDetail-image-container">
         <img
-          src={`/media/products/${props.id}/${props.img}_0.jpg`}
+          src={`/media/products/${props.img}main.jpg`}
           alt={`${props.title} funko pop`}
         />
       </div>

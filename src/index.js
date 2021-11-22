@@ -11,6 +11,7 @@ ReactDOM.render(
 // TODO: ORDENAR POR...
 // TODO: CSS -> Agregar y reemplazar flex-1 en donde haga falta
 // TODO: SUBSECCIONES CON UNIVERSO
+// TODO: OUT OF STOCK
 // TODO: VALIDACIón Y ACTUALIZACIÓN DE STOCK
 // TODO: AGREGAR MÁS PRODUCTOS
 // TODO: FILTRO LATERAL: Stock, rango de precios, rating, free shipping, discount, featured.
