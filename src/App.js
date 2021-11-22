@@ -6,6 +6,8 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Cart from "./components/Cart";
 import { CustomProvider } from "./context/CartContext";
+import CheckoutContainer from "./components/CheckoutContainer";
+import ThankYou from "./components/ThankYou";
 
 const App = () => {
   return (
@@ -32,8 +34,15 @@ const App = () => {
           <Route path="/item/:id" exact>
             <ItemDetailContainer />
           </Route>
+          
           <Route path="/cart" >
             <Cart />
+          </Route>
+          <Route path="/checkout" >
+            <CheckoutContainer />
+          </Route>
+          <Route path="/thank-you" >
+            <ThankYou />
           </Route>
         </Switch>
         <Footer />

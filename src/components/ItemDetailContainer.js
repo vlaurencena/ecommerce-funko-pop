@@ -9,28 +9,28 @@ const ItemDetailContainer = () => {
   const [selectedItem, setSelectedItem] = useState(undefined);
   const { id } = useParams();
 
-  const getItem = () => {
-
-    firestore
-      .collection("products")
-      .where("__name__", "==", id)
-      .get()
-      .then((querySnapshot) => {
-        const item = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setSelectedItem(...item);
-        console.log(...item);
-      })
-      .catch(() => {
-        console.error("Error!");
-      })
-  }
-
   useEffect(() => {
-    getItem();
-  }, []);
+
+    (() => {
+
+      firestore
+        .collection("products")
+        .where("__name__", "==", id)
+        .get()
+        .then((querySnapshot) => {
+          const item = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setSelectedItem(...item);
+          window.scrollTo(0, 0);
+        })
+        .catch(() => {
+          console.error("Error!");
+        })
+    })()
+
+  }, [id]);
 
   if (selectedItem === undefined) {
     return <div className="loading">Loading Item...</div>

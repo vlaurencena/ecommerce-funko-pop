@@ -1,7 +1,8 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { context } from "../context/CartContext";
 
-const CartCheckout = () => {
+const CartPreCheckout = () => {
 
     const { cartTotal, cartTotalWorth } = useContext(context);
 
@@ -19,10 +20,10 @@ const CartCheckout = () => {
                     <div>SUBTOTAL</div>
                     <div>${cartTotalWorth}</div>
                 </div>
-                <button>CHECK OUT</button>
+                <Link to="/checkout">CHECK OUT</Link>
             </div>
         </>
     )
 }
 
-export default CartCheckout;
+export default CartPreCheckout;

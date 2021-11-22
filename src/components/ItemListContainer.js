@@ -1,6 +1,5 @@
 import ItemList from "./ItemList";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import PageTitle from "./PageTitle";
 import firestore from "../firebase";
@@ -14,39 +13,40 @@ const ItemListContainer = (props) => {
 
     const { categoryId, universeId } = useParams();
 
-    const getProducts = () => {
+    useEffect(() => {
 
-        const products = firestore.collection("products");
+        const getProducts = () => {
 
-        let query = null;
+            const products = firestore.collection("products");
 
-        if (props.id) {
-            query = products.where("__name__", "!=", props.id);
-        } else if (universeId) {
-            query = products.where("universe", "==", universeId);
-        } else if (categoryId) {
-            query = products.where("category", "==", categoryId);
-        } else {
-            query = products;
+            let query = null;
+
+            if (props.id) {
+                query = products.where("__name__", "!=", props.id);
+            } else if (universeId) {
+                query = products.where("universe", "==", universeId);
+            } else if (categoryId) {
+                query = products.where("category", "==", categoryId);
+            } else {
+                query = products;
+            }
+
+            const promise = query.get();
+
+            promise
+                .then(result => {
+                    setItems(result.docs.map(doc => {
+                        return { id: doc.id, ...doc.data() };
+                    }))
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
         }
 
-        const promise = query.get();
-
-        promise
-            .then(result => {
-                setItems(result.docs.map(doc => {
-                    return {id: doc.id, ...doc.data()};
-                }))
-            })
-            .catch(() => {
-                console.error("Error!");
-            })
-    }
-
-
-    useEffect(() => {
         getProducts();
-    }, [categoryId, universeId]);
+
+    }, [categoryId, universeId, props.id]);
 
     if (items.length === 0) {
         return (

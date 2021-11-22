@@ -405,3 +405,50 @@ a.active-category {
 .page-title-container__main {
   font-size: 4rem;
 }
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.checkout-container {
+  width: 100%;
+  padding: 50px;
+  display: flex;
+  background-color: red;
+}
+
+.checkout-form {
+  width: 60%;
+}
+
+.checkout-form__row-two-column,
+.checkout-form__row-one-column {
+  width: 100%;
+  display: flex;
+}
+
+.checkout-form__row-one-column {
+  flex-direction: column;
+}
+
+.checkout-form__row-two-column > div {
+  width: 50%;
+}
+
+.checkout-form label {
+  display: block;
+}
+
+.checkout-form input[type="submit"] {
+  display: block;
+}

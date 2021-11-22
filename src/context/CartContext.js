@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect } from "react";
-import Item from "../components/Item";
 import firestore from "../firebase";
 
 const context = createContext();
@@ -31,6 +30,7 @@ const CustomProvider = ({ children }) => {
     }
 
     const addProduct = (productId, quantity) => {
+        
         if (isInCart(productId) === false) {
             console.log("NO ESTOY EN EL CART");
             const NEW_PRODUCT = products.filter(product => product.id === productId);
@@ -89,6 +89,7 @@ const CustomProvider = ({ children }) => {
 
     const context_value = {
         cart: cart,
+        setCart: setCart,
         cartTotal: cartTotal,
         cartTotalWorth: cartTotalWorth,
         addProduct: addProduct,
