@@ -27,7 +27,7 @@ const Item = (props) => {
                 />
             </a>
             <a className="Item-card__item-link Item-card__title" href={itemLink}>{props.title}</a>
-            <div className="Item-card__price">${props.price}</div>
+            <div className="Item-card__price">${props.price.toFixed(2)}</div>
             <Link to={itemLink} className="Item-card__detail-link">See details</Link>
         </div >
     )

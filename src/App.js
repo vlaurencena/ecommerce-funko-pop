@@ -20,15 +20,11 @@ const App = () => {
           </Route>
 
           <Route path="/all-products/" exact>
-            <ItemListContainer />
+            <ItemListContainer sortBy={true}/>
           </Route>
 
-          <Route path="/category/:categoryId/" exact>
-            <ItemListContainer />
-          </Route>
-
-          <Route path="/category/:categoryId/:universeId/" exact>
-            <ItemListContainer />
+          <Route path="/category/:category/" exact>
+            <ItemListContainer sortBy={true}/>
           </Route>
 
           <Route path="/item/:id" exact>

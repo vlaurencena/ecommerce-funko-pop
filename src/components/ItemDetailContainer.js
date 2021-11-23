@@ -49,7 +49,11 @@ const ItemDetailContainer = () => {
             stock={10} />
         </div>
         <h2>Other products you may be interested in</h2>
-        <ItemListContainer id={selectedItem.id} />
+        <ItemListContainer
+          id={selectedItem.id}
+          universe={selectedItem.universe}
+          category={selectedItem.category}
+        />
       </>
     );
   }

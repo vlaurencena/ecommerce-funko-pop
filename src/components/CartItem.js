@@ -7,7 +7,7 @@ const CartItem = (product) => {
     return (
         <div className="cart-item cart-list-grid">
             <div className="cart-item__image-container">
-                <img className="cart-item__image" src={`/media/products/${product.id}/${product.imgUrl}_0.jpg`} alt={`${product.title} funko pop`} />
+                <img className="cart-item__image" src={`/media/products/${product.imgUrl}main.jpg`} alt={`${product.title} funko pop`} />
             </div>
             <div>{product.title}</div>
             <button onClick={removeThisProduct} className="material-icons trash">delete</button>
