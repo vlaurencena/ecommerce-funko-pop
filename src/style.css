@@ -474,3 +474,20 @@ a.active-category {
 .checkout-form input[type="submit"] {
   display: block;
 }
+
+.product-container {
+  display: flex;
+  flex: 1;
+}
+
+.universe-filter {
+  padding: 10px;
+}
+
+.universe-filter__title {
+  margin: 10px 0;
+}
+
+.universe-filter__checkbox label {
+  margin-right: 4px; 
+}

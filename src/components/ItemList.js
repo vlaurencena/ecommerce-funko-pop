@@ -11,7 +11,7 @@ const ItemList = (props) => {
     }
 
     return (
-        <>
+        <div className="item-list">
             {props.items.map((item) => {
                 return (
                     <Item
@@ -26,7 +26,7 @@ const ItemList = (props) => {
                     />
                 );
             })}
-        </>
+        </div>
     );
 }
 

@@ -3,27 +3,25 @@ import SortBy from "./SortBy";
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import firestore from "../firebase";
+import UniverseFilter from "./UniverseFilter"
 
 
 const ItemListContainer = (props) => {
 
     const [items, setItems] = useState([]);
-    const { category, universeId, id } = useParams();
-
+    const { category, id } = useParams();
     const [loaded, setLoaded] = useState(false);
 
     const [sortBy, setSortBy] = useState("newest");
 
     const handleSortByChange = (event) => {
         setSortBy(event.target.value);
-        event.target.a && console.log(event.target.a);
     }
 
     const [sameUniverse, setSameUniverse] = useState(true);
     const [sameCategory, setSameCategory] = useState(true);
 
     useEffect(() => {
-
         const getProducts = () => {
             const products = firestore.collection("products");
             let query = null;
@@ -38,8 +36,6 @@ const ItemListContainer = (props) => {
             } else if (props.id && sameUniverse === false && sameCategory === false) {
                 console.log("here");
                 query = products.limit(4);
-            } else if (universeId) {
-                query = products.where("universe", "==", universeId);
             } else if (category) {
                 query = products.where("category", "==", category);
             } else {
@@ -68,7 +64,7 @@ const ItemListContainer = (props) => {
                 })
         }
         getProducts();
-    }, [category, universeId, id, props.id, sortBy, sameUniverse, sameCategory]);
+    }, [category, id, props.id, sortBy, sameUniverse, sameCategory]);
 
     const sortItems = (array) => {
         let sortedArray = [...array];
@@ -96,22 +92,77 @@ const ItemListContainer = (props) => {
         return sortedArray;
     }
 
+    // UNIVERSE FILTER
+    const [universes, setUniverses] = useState([]);
+    const [selectedUniverses, setSelectedUniverses] = useState([]);
+    const [filterOn, setFilterOn] = useState(false);
+    const [filteredItems, setFilteredItems] = useState([]);
+
+    useEffect(() => {
+        const getAllUniverses = () => {
+            const universesMapping = items.map(item => item.universe);
+            return [...new Set(universesMapping)].sort(function (a, b) {
+                return a.localeCompare(b)
+            });
+        }
+        setUniverses(getAllUniverses());
+    }, [items]);
+
+    useEffect(() => {
+        if (selectedUniverses.length) {
+            console.log("filter is on");
+            const copyOfItems = [...items];
+            const newItemsSelected = []
+            copyOfItems.forEach(item => {
+                if (selectedUniverses.includes(item.universe)) {
+                    newItemsSelected.push(item);
+                }
+            })
+            console.log(newItemsSelected);
+            setFilterOn(true);
+            setFilteredItems(newItemsSelected);
+        } else {
+            setFilterOn(false);
+            console.log("filter is off");
+        }
+    }, [selectedUniverses])
+
+    const handleUniverseChange = (event) => {
+        const universeClicked = event.target.name;
+        const copyOfSelectedUniverses = [...selectedUniverses];
+        if (selectedUniverses.includes(universeClicked)) {
+            console.log("sí estoy");
+            copyOfSelectedUniverses.splice(copyOfSelectedUniverses.indexOf(universeClicked), 1)
+        } else {
+            console.log("no estoy");
+            copyOfSelectedUniverses.push(universeClicked);
+        }
+        copyOfSelectedUniverses.sort(function (a, b) {
+            return a.localeCompare(b)
+        });
+        setSelectedUniverses(copyOfSelectedUniverses);
+        console.log(copyOfSelectedUniverses);
+    }
+
     if (loaded === false) {
         return (
             <div className="item-list-container loading">
                 Loading...
             </div>
-
         )
     } else {
         return (
-            <div className="item-list-container">
-                {props.sortBy && <SortBy
-                    handleSortByChange={handleSortByChange}
+            <div className="product-container">
+                {props.useUniverseFilter && <UniverseFilter
+                    universes={universes}
+                    handleUniverseChange={handleUniverseChange}
                 />}
-                <div className="item-list">
+                <div className="item-list-container">
+                    {props.sortBy && <SortBy
+                        handleSortByChange={handleSortByChange}
+                    />}
                     <ItemList
-                        items={items}
+                        items={filterOn ? filteredItems : items}
                     />
                 </div>
             </div>

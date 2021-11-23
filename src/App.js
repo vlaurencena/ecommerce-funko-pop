@@ -20,15 +20,15 @@ const App = () => {
           </Route>
 
           <Route path="/all-products/" exact>
-            <ItemListContainer sortBy={true}/>
+            <ItemListContainer sortBy={true} useUniverseFilter={true}/>
           </Route>
 
           <Route path="/category/:category/" exact>
-            <ItemListContainer sortBy={true}/>
+            <ItemListContainer sortBy={true} useUniverseFilter={true}/>
           </Route>
 
           <Route path="/item/:id" exact>
-            <ItemDetailContainer />
+            <ItemDetailContainer useUniverseFilter={false}/>
           </Route>
           
           <Route path="/cart" >
