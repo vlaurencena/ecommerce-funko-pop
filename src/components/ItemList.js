@@ -2,7 +2,6 @@ import Item from "./Item";
 
 const ItemList = (props) => {
 
-
     const checkIsNew = (releaseDate) => {
         const CURRENT_DATE = new Date(2021, 10, 3); // REPLACE WITH ACTUAL DATE
         const PRODUCT_RELEASE_DATE = releaseDate.toDate();
