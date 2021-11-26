@@ -7,7 +7,7 @@ const ThankYou = () => {
 
     const [redirect, setRedirect] = useState(false);
 
-    const [seconds, setSeconds] = useState(120);
+    const [seconds, setSeconds] = useState(60);
 
     useEffect(() => {
         seconds > 0 && setTimeout(() => setSeconds(seconds - 1), 1000);

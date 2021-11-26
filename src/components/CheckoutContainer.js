@@ -47,7 +47,6 @@ const CheckoutContainer = () => {
     console.log(items);
 
     const handleSubmit = (event) => {
-        event.preventDefault();
         setOrder(
             [{
                 buyer: buyer,

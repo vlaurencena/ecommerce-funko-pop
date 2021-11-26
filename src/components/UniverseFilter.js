@@ -11,16 +11,14 @@ const UniverseFilter = (props) => {
                 <ul onChange={props.handleUniverseChange}>
                     {props.universes.map(universe => {
                         return (
-                            <>
                                 <li key={universe} className="universe-filter__checkbox">
                                     <label htmlFor={universe}>{convertSlugToString(universe)}</label>
-                                    <input 
+                                    <input
                                     id={universe} 
                                     name={universe} 
                                     type="checkbox" 
                                     checked={props.selectedUniverses.includes(universe) ? true : false}/>
                                 </li>
-                            </>
                         )
                     })}
                 </ul>
