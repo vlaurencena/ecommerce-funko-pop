@@ -24,7 +24,7 @@ const UniverseFilter = (props) => {
                         )
                     })}
                 </ul>
-                <button onClick={props.clearUniverseSelection} >CLEAR SELECTION</button>
+                <button onClick={props.clearUniverseSelection}>CLEAR SELECTION</button>
             </div>
         </>
     )
