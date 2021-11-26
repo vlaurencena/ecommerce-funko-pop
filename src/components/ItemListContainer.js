@@ -129,7 +129,6 @@ const ItemListContainer = (props) => {
 
     const clearUniverseSelection = () => {
         setSelectedUniverses([]);
-
     }
 
     const handleUniverseChange = (event) => {
@@ -162,6 +161,7 @@ const ItemListContainer = (props) => {
                     universes={universes}
                     handleUniverseChange={handleUniverseChange}
                     clearUniverseSelection={clearUniverseSelection}
+                    selectedUniverses={selectedUniverses}
                 />}
                 <div className="item-list-container">
                     {props.sortBy && <SortBy
