@@ -9,6 +9,7 @@ ReactDOM.render(
 )
 
 // TODO: CSS -> Agregar y reemplazar flex-1 en donde haga falta
+// TODO: BOTÓN CLEAR SELECTION EN FILTER BY UNIVERSE PARA BORRAR TODA LA SELECCIÓN
 // TODO: OUT OF STOCK
 // TODO: VALIDACIón Y ACTUALIZACIÓN DE STOCK
 // TODO: FILTRO LATERAL: Stock, rango de precios, rating, free shipping, discount, featured.

@@ -13,7 +13,9 @@ const App = () => {
   return (
     <BrowserRouter>
       <CustomProvider>
+
         <NavBar />
+
         <Switch>
           <Route path="/" exact>
             <Home />
@@ -23,7 +25,7 @@ const App = () => {
             <ItemListContainer sortBy={true} useUniverseFilter={true}/>
           </Route>
 
-          <Route path="/category/:category/" exact>
+          <Route path="/categories/:category/" exact>
             <ItemListContainer sortBy={true} useUniverseFilter={true}/>
           </Route>
 

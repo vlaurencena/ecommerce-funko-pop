@@ -125,7 +125,12 @@ const ItemListContainer = (props) => {
             setFilterOn(false);
             console.log("filter is off");
         }
-    }, [selectedUniverses])
+    }, [selectedUniverses]);
+
+    const clearUniverseSelection = () => {
+        setSelectedUniverses([]);
+
+    }
 
     const handleUniverseChange = (event) => {
         const universeClicked = event.target.name;
@@ -156,6 +161,7 @@ const ItemListContainer = (props) => {
                 {props.useUniverseFilter && <UniverseFilter
                     universes={universes}
                     handleUniverseChange={handleUniverseChange}
+                    clearUniverseSelection={clearUniverseSelection}
                 />}
                 <div className="item-list-container">
                     {props.sortBy && <SortBy
