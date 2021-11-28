@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { context } from "../context/CartContext";
 import CartListContainer from "./CartListContainer";
-import CartPreCheckout from "./CartPreCheckout";
+import CartSummary from "./CartSummary";
 import EmptyCartContainer from "./EmptyCartContainer";
 
 const Cart = () => {
@@ -14,7 +14,7 @@ const Cart = () => {
             (
             <>
             <CartListContainer />
-            <CartPreCheckout />
+            <CartSummary />
             </>
             )
             : (

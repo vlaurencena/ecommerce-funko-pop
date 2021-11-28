@@ -5,8 +5,6 @@ const context = createContext();
 
 let products = [];
 
-console.log("cart context");
-
 const database = firestore.collection("products").get();
 
 database.then(querySnapshot => {

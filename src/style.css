@@ -314,8 +314,8 @@ a.active-category {
   max-width: 1300px;
   margin: auto;
   display: flex;
-  justify-content: space-between;
   flex: 1 1;
+  padding: 15px;
 }
 
 .cart-list-container {
@@ -370,7 +370,7 @@ a.active-category {
   position: relative;
 }
 
-.checkout-container {
+.cart-summary {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -489,7 +489,7 @@ a.active-category {
 }
 
 .universe-filter__checkbox label {
-  margin-right: 4px; 
+  margin-right: 4px;
 }
 
 .tooltip {
@@ -528,4 +528,104 @@ a.active-category {
 .tooltip .tooltiptext-visible {
   visibility: visible;
   opacity: 1;
+}
+
+.cart-widget-hover {
+  position: absolute;
+  right: 0;
+  z-index: 10;
+  top: 0;
+}
+
+div.cart-widget-hover__transparent {
+  min-height: 84px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.cart-widget-hover__white {
+  background-color: #ffffff;
+  padding: 8px;
+  box-shadow: 0 1px 31px -8px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0 1px 31px -8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0 1px 31px -8px rgba(0, 0, 0, 0.75);
+}
+
+.cart-widget-hover-item {
+  display: flex;
+  border-bottom: 1px solid #555;
+  padding: 10px 0;
+  gap: 5px;
+}
+
+.cart-widget-hover-item__description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.cart-widget-hover__item-description:first-child {
+  padding-right: 50px;
+}
+
+.cart-widget-hover-item__image {
+  width: 50px;
+}
+.cart-widget-hover__delete {
+  margin-left: auto;
+}
+.custom-link-button {
+  display: block;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  margin: 2px 0;
+  width: 100%;
+}
+
+a.custom-link-button {
+  text-decoration: none;
+}
+
+
+button.custom-link-button {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  border: 0;
+}
+
+a.custom-link-button--dark {
+  color: #ffffff;
+}
+
+.custom-link-button--dark {
+  background-color: #555;
+
+}
+.custom-link-button--light {
+  background-color: #ffffff;
+}
+
+.cart-widget-hover__subtotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cart-widget-hover__delete {
+  margin-bottom: auto;
+}
+
+.loading-spinner {
+  width: 100px;
+  margin: auto;
 }

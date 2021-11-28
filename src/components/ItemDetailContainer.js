@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import firestore from "../firebase";
 import { useEffect, useState } from "react";
 import ItemListContainer from "./ItemListContainer";
+import LoadingSpinner from "./LoadingSpinner";
 
 const ItemDetailContainer = () => {
 
@@ -38,7 +39,7 @@ const ItemDetailContainer = () => {
   }, [id]);
 
   if (loading) {
-    return <div className="loading">Loading Item...</div>
+    return <LoadingSpinner />
   } else {
     if (selectedItem === undefined) {
       return (

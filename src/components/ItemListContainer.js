@@ -3,7 +3,8 @@ import SortBy from "./SortBy";
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import firestore from "../firebase";
-import UniverseFilter from "./UniverseFilter"
+import UniverseFilter from "./UniverseFilter";
+import LoadingSpinner from "./LoadingSpinner"
 
 
 const ItemListContainer = (props) => {
@@ -35,7 +36,7 @@ const ItemListContainer = (props) => {
                     .where("category", "==", props.category).limit(4);
             } else if (props.id && sameUniverse === false && sameCategory === false) {
                 console.log("here");
-                query = products.limit(4);
+                query = products.where("__name__", "!=", props.id).limit(4);
             } else if (category) {
                 query = products.where("category", "==", category);
             } else {
@@ -160,13 +161,6 @@ const ItemListContainer = (props) => {
         console.log(copyOfSelectedUniverses);
     }
 
-    if (loaded === false) {
-        return (
-            <div className="item-list-container loading">
-                Loading...
-            </div>
-        )
-    } else {
         return (
             <div className="product-container">
                 {props.useUniverseFilter && <UniverseFilter
@@ -179,13 +173,17 @@ const ItemListContainer = (props) => {
                     {props.sortBy && <SortBy
                         handleSortByChange={handleSortByChange}
                     />}
+                    {loaded ? (
                     <ItemList
                         items={filterOn ? filteredItems : items}
                     />
+                    ) : 
+                    <LoadingSpinner />
+                    }
                 </div>
             </div>
         )
-    }
+    // }
 }
 
 export default ItemListContainer;

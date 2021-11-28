@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import CustomLinkButton from "./CustomLinkButton";
 
 const ItemCount = (props) => {
 
@@ -14,9 +15,12 @@ const ItemCount = (props) => {
                         add
                     </button>
                 </div>
-                <div className="bg-white">
-                    <button className="add-to-cart-button" onClick={props.onAdd}>Agregar al carrito</button>
-                </div>
+                <CustomLinkButton
+                    text="ADD TO CART"
+                    onClick={props.onAdd}
+                    color="dark"
+                    type="button"
+                />
             </div >
         );
 

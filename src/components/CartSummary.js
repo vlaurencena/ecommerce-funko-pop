@@ -1,14 +1,14 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
 import { context } from "../context/CartContext";
+import CustomLinkButton from "./CustomLinkButton";
 
-const CartPreCheckout = () => {
+const CartSummary = () => {
 
     const { cartTotal, cartTotalWorth } = useContext(context);
 
     return (
         <>
-            <div className="checkout-container">
+            <div className="cart-summary">
                 <div className="checkout-container__header line-division">
                     <div>SUMMARY</div>
                     <div>{cartTotal} ITEM{cartTotal > 1 && <span>S</span>}</div>
@@ -20,10 +20,15 @@ const CartPreCheckout = () => {
                     <div>SUBTOTAL</div>
                     <div>${cartTotalWorth}</div>
                 </div>
-                <Link to="/checkout">CHECK OUT</Link>
+                <CustomLinkButton
+                    text="CHECKOUT"
+                    type="link"
+                    link="/checkout"
+                    color="dark"
+                />
             </div>
         </>
     )
 }
 
-export default CartPreCheckout;
+export default CartSummary;
