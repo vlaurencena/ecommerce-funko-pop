@@ -5,6 +5,8 @@ const context = createContext();
 
 let products = [];
 
+console.log("cart context");
+
 const database = firestore.collection("products").get();
 
 database.then(querySnapshot => {
@@ -13,6 +15,9 @@ database.then(querySnapshot => {
         ...doc.data(),
     }))
 });
+
+
+
 
 const { Provider } = context;
 
@@ -23,14 +28,13 @@ const CustomProvider = ({ children }) => {
     useEffect(() => {
         setCartTotal(sumItemsInCart());
         setCartTotalWorth(sumTotalCartWorth());
-    }, [cart])
+    }, [cart]);
 
     const isInCart = (productId) => {
         return cart.some(product => product.id === productId);
     }
 
     const addProduct = (productId, quantity) => {
-        
         if (isInCart(productId) === false) {
             console.log("NO ESTOY EN EL CART");
             const NEW_PRODUCT = products.filter(product => product.id === productId);
@@ -49,15 +53,20 @@ const CustomProvider = ({ children }) => {
             })
             setCart([...updatedCart]);
         }
+        updateLSCart();
     }
 
     const removeProduct = (productId) => {
         setCart(cart.filter(product => product.id !== productId));
+        updateLSCart();
+
     }
 
     const clearCart = () => {
         setCart([]);
+        updateLSCart();
     }
+
 
     const [cartTotal, setCartTotal] = useState(0);
 
@@ -97,6 +106,33 @@ const CustomProvider = ({ children }) => {
         clearCart: clearCart,
         isInCart: isInCart
     }
+
+    useEffect(() => {
+        const checkLSCartTotal = JSON.parse(localStorage.getItem("cartTotal"));
+        checkLSCartTotal !== 0 && retrieveLSCart();
+    }, []);
+
+    const retrieveLSCart = () => {
+        const LSCartTotal = JSON.parse(localStorage.getItem("cartTotal"));
+        const LSCart = JSON.parse(localStorage.getItem("cart"));
+        const LSCartTotalWorth = JSON.parse(localStorage.getItem("LSCartTotalWorth"));
+        setCart(LSCart);
+        setCartTotal(LSCartTotal);
+        setCartTotalWorth(LSCartTotalWorth);
+    }
+
+    const updateLSCart = () => {
+        localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("cartTotal", JSON.stringify(cartTotal));
+        localStorage.setItem("cartTotalWorth", JSON.stringify(cartTotalWorth));
+    }
+
+    const [firstRender, setFirstRender] = useState(false);
+    
+    useEffect(() => {
+        firstRender && updateLSCart();
+        setFirstRender(true);
+    }, [cart, cartTotal, cartTotalWorth]);
 
     return (
         <Provider value={context_value}>

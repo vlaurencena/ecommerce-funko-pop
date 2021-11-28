@@ -64,7 +64,19 @@ const ItemListContainer = (props) => {
                 })
         }
         getProducts();
-    }, [category, id, props.id, sortBy, sameUniverse, sameCategory]);
+    }, [category, id, props.id, sameUniverse, sameCategory]);
+
+    useEffect(() => {
+        const sortedArrayOfProducts = sortItems(filterOn ? [...filteredItems] : [...items]);
+        filterOn ? setFilteredItems([...sortedArrayOfProducts]) : setItems([...sortedArrayOfProducts]);
+    }, [sortBy]);
+
+    useEffect(() => {
+        setFilterOn(false);
+        setSelectedUniverses([]);
+    }, [category]);
+
+
 
     const sortItems = (array) => {
         let sortedArray = [...array];

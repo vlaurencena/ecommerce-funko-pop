@@ -10,6 +10,11 @@ import CheckoutContainer from "./components/CheckoutContainer";
 import ThankYou from "./components/ThankYou";
 
 const App = () => {
+
+  // if (localStorage.length !== 0) {
+
+  // }
+
   return (
     <BrowserRouter>
       <CustomProvider>
@@ -22,17 +27,17 @@ const App = () => {
           </Route>
 
           <Route path="/all-products/" exact>
-            <ItemListContainer sortBy={true} useUniverseFilter={true}/>
+            <ItemListContainer sortBy={true} useUniverseFilter={true} />
           </Route>
 
           <Route path="/categories/:category/" exact>
-            <ItemListContainer sortBy={true} useUniverseFilter={true}/>
+            <ItemListContainer sortBy={true} useUniverseFilter={true} />
           </Route>
 
           <Route path="/item/:id" exact>
-            <ItemDetailContainer useUniverseFilter={false}/>
+            <ItemDetailContainer useUniverseFilter={false} />
           </Route>
-          
+
           <Route path="/cart" >
             <Cart />
           </Route>
@@ -40,6 +45,7 @@ const App = () => {
             <CheckoutContainer />
           </Route>
           <Route path="/thank-you" >
+
             <ThankYou />
           </Route>
         </Switch>
