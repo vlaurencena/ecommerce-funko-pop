@@ -12,6 +12,9 @@ const ItemListContainer = (props) => {
     const [items, setItems] = useState([]);
     const { category, id } = useParams();
     const [loaded, setLoaded] = useState(false);
+    const [numberOfItems, setNumberOfItems] = useState(0);
+
+
 
     const [sortBy, setSortBy] = useState("newest");
 
@@ -161,28 +164,34 @@ const ItemListContainer = (props) => {
         console.log(copyOfSelectedUniverses);
     }
 
-        return (
-            <div className="product-container">
-                {props.useUniverseFilter && <UniverseFilter
-                    universes={universes}
-                    handleUniverseChange={handleUniverseChange}
-                    clearUniverseSelection={clearUniverseSelection}
-                    selectedUniverses={selectedUniverses}
-                />}
-                <div className="item-list-container">
-                    {props.sortBy && <SortBy
+    useEffect(() => {
+        setNumberOfItems(filterOn ? filteredItems.length : items.length)
+     }, [items, filteredItems]);
+
+    return (
+        <div className="product-container">
+            {props.useUniverseFilter && <UniverseFilter
+                universes={universes}
+                handleUniverseChange={handleUniverseChange}
+                clearUniverseSelection={clearUniverseSelection}
+                selectedUniverses={selectedUniverses}
+            />}
+            <div className="item-list-container">
+                {props.sortBy &&
+                    <SortBy
                         handleSortByChange={handleSortByChange}
+                        numberOfItems={loaded ? numberOfItems : 0}
                     />}
-                    {loaded ? (
+                {loaded ? (
                     <ItemList
                         items={filterOn ? filteredItems : items}
                     />
-                    ) : 
+                ) :
                     <LoadingSpinner />
-                    }
-                </div>
+                }
             </div>
-        )
+        </div>
+    )
     // }
 }
 

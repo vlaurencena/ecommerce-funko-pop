@@ -18,7 +18,7 @@ const ItemCount = (props) => {
                 <CustomLinkButton
                     text="ADD TO CART"
                     onClick={props.onAdd}
-                    color="dark"
+                    color="light"
                     type="button"
                 />
             </div >
@@ -26,9 +26,12 @@ const ItemCount = (props) => {
 
     const finishPurchase =
         (
-            <Link to="/cart" className="item-count-container bg-lightgray">
-                Go to Cart
-            </Link>
+            <CustomLinkButton
+            text="GO TO CART"
+            link="/cart"
+            color="dark"
+            type="link"
+        />
         );
 
     return (

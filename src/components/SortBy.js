@@ -1,6 +1,11 @@
 const SortBy = (props) => {
+
+
+
     return (
-        <select className="sort-by" onChange={props.handleSortByChange}>
+        <div className="sort-by-container">
+        <div>({props.numberOfItems}) results</div>
+        <select className="sort-by-select" onChange={props.handleSortByChange}>
             <option value="newest">Newest</option>
             <option value="oldest">Oldest</option>
             <option value="a-z">A-Z</option>
@@ -8,6 +13,7 @@ const SortBy = (props) => {
             <option value="price-low-high">Price (low to high)</option>
             <option value="price-high-low">Price (high to low)</option>
         </select>
+        </div>
     )
 }
 

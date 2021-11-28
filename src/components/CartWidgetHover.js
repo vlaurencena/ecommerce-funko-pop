@@ -11,7 +11,7 @@ const CartWidgetHover = (props) => {
     return (
         <div onMouseEnter={props.handleMouseEnter} onMouseLeave={props.handleMouseLeave} className=
             {`cart-widget-hover ${props.hovered === false && "hidden"}`}>
-            <a href="cart"><div className="cart-widget-hover__transparent"></div></a>
+            <a href="/cart" className="cursor-pointer cart-widget-hover__transparent--link"><div className="cart-widget-hover__transparent"></div></a>
             <div className="cart-widget-hover__white">
                 {cart.map((item) => {
                     return (
