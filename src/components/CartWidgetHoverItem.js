@@ -11,8 +11,11 @@ const CartWidgetHoverItem = (props) => {
 
     return (
         <div className="cart-widget-hover-item">
-            <img className="cart-widget-hover-item__image" src={`/media/products/${props.imgUrl}main.jpg`}
-                alt={`${props.title} funko pop`} />
+            <div className="cart-widget-hover-item__image-container">
+                <img className="cart-widget-hover-item__image" src={`/media/products/${props.imgUrl}main.jpg`}
+                    alt={`${props.title} funko pop`} />
+            </div>
+
             <div className="cart-widget-hover-item__description">
                 <div className="cart-widget-hover-item__description-title">{props.title}</div>
                 <div>{props.quantity} x ${props.price}</div>

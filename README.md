@@ -4,10 +4,10 @@
 ## Description
 It is an ecommerce dedicated to selling Funko Pop dolls. The products are classified according to category and "universe" to which the figure belongs to. 
 ## Built with
-* HTML
-* CSS
-* JavaScript
-* React
+* HTML.
+* CSS.
+* JavaScript.
+* React.
 * React Router DOM: I chose to work with this components library to work with dynamic routing.
 * Firebase: I decided to work with this service because this project did not have too many requirements and Firebase provides a quick and easy way to create a database.
 ## Project preview

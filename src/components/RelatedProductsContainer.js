@@ -22,6 +22,8 @@ const RelatedProductsContainer = (props) => {
             } else if (sameCategory === true) {
                 query = filterSameId
                     .where("category", "==", props.category).limit(4);
+            } else {
+                query = filterSameId.limit(4);
             }
             const promise = query.get();
             promise
