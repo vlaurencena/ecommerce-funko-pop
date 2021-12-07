@@ -411,7 +411,11 @@ div.cart-widget-hover__transparent {
 }
 
 a.active-category {
-  color: red;
+  color: #8e8e8e;
+}
+
+.active-category > img {
+  filter: invert(65%) sepia(0%) saturate(0%) hue-rotate(358deg) brightness(87%) contrast(85%);
 }
 
 .item-card__new::before,

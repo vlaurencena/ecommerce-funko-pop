@@ -4,7 +4,7 @@ import CartWidget from "./CartWidget";
 const NavBar = () => {
     return (
         <nav className="navbar">
-            <NavLink exact className="navbar__navigation-link-left" to="/">
+            <NavLink exact activeClassName="active-category" className="navbar__navigation-link-left" to="/">
                 <img className="navbar__logo" src="/funko-town-logo.png" alt="Logo de Funko Town" />
             </NavLink>
             <div className="navbar__navigation-links">

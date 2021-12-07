@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react/cjs/react.development";
 import { context } from "../context/CartContext";
 import CartWidgetHover from "./CartWidgetHover";
@@ -19,12 +19,12 @@ const CartWidget = () => {
 
     return (
         <>
-            <Link to="/cart" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="shopping-cart-icon">
+            <NavLink activeClassName="active-category" to="/cart" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="shopping-cart-icon">
                 <span className="material-icons">
                     shopping_cart
                 </span>
                 {cartTotal > 0 ? <div className="cart-number-container"><span>{cartTotal}</span></div> : null}
-            </Link>
+            </NavLink>
             {cartTotal !== 0 && <CartWidgetHover
                     hovered={hovered}
                     handleMouseEnter={handleMouseEnter}
