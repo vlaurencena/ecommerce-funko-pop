@@ -1,10 +1,8 @@
 const SortBy = (props) => {
 
-
-
     return (
         <div className="sort-by-container">
-        <div>({props.numberOfItems}) results</div>
+        <div>({props.numberOfItems}) result{props.numberOfItems !== 1 && <span>s</span>}</div>
         <select className="sort-by-select" onChange={props.handleSortByChange}>
             <option value="newest">Newest</option>
             <option value="oldest">Oldest</option>

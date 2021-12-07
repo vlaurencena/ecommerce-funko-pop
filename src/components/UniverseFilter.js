@@ -1,3 +1,5 @@
+import CustomLinkButton from "./CustomLinkButton";
+
 const UniverseFilter = (props) => {
 
     const convertSlugToString = (slug) => {
@@ -8,21 +10,26 @@ const UniverseFilter = (props) => {
         <>
             <div className="universe-filter">
                 <p className="universe-filter__title">Filter by universe</p>
-                <ul onChange={props.handleUniverseChange}>
+                <ul onChange={props.handleUniverseChange} className="universe-filter__list">
                     {props.universes.map(universe => {
                         return (
-                                <li key={universe} className="universe-filter__checkbox">
-                                    <label htmlFor={universe}>{convertSlugToString(universe)}</label>
-                                    <input
-                                    id={universe} 
-                                    name={universe} 
-                                    type="checkbox" 
-                                    checked={props.selectedUniverses.includes(universe) ? true : false}/>
-                                </li>
+                            <li key={universe} className="universe-filter__checkbox">
+                                <label htmlFor={universe}>{convertSlugToString(universe)}</label>
+                                <input
+                                    id={universe}
+                                    name={universe}
+                                    type="checkbox"
+                                    checked={props.selectedUniverses.includes(universe) ? true : false} />
+                            </li>
                         )
                     })}
                 </ul>
-                <button onClick={props.clearUniverseSelection}>CLEAR SELECTION</button>
+                <CustomLinkButton
+                    onClick={props.clearUniverseSelection}
+                    text="CLEAR SELECTION"
+                    type="button"
+                    color="dark"
+                />
             </div>
         </>
     )

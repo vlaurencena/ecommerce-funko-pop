@@ -1,46 +1,29 @@
-import ItemList from "./ItemList";
-import SortBy from "./SortBy";
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import ItemList from "./ItemList";
+import SortBy from "./SortBy";
 import firestore from "../firebase";
 import UniverseFilter from "./UniverseFilter";
-import LoadingSpinner from "./LoadingSpinner"
+import LoadingSpinner from "./LoadingSpinner";
 
 
-const ItemListContainer = (props) => {
+const ItemListContainer = () => {
 
+    const { category } = useParams();
     const [items, setItems] = useState([]);
-    const { category, id } = useParams();
     const [loaded, setLoaded] = useState(false);
     const [numberOfItems, setNumberOfItems] = useState(0);
-
-
-
     const [sortBy, setSortBy] = useState("newest");
 
     const handleSortByChange = (event) => {
         setSortBy(event.target.value);
-    }
-
-    const [sameUniverse, setSameUniverse] = useState(true);
-    const [sameCategory, setSameCategory] = useState(true);
+    };
 
     useEffect(() => {
         const getProducts = () => {
             const products = firestore.collection("products");
             let query = null;
-            if (props.id && sameUniverse === true) {
-                query = products
-                    .where("__name__", "!=", props.id)
-                    .where("universe", "==", props.universe).limit(4);
-            } else if (props.id && sameCategory === true) {
-                query = products
-                    .where("__name__", "!=", props.id)
-                    .where("category", "==", props.category).limit(4);
-            } else if (props.id && sameUniverse === false && sameCategory === false) {
-                console.log("here");
-                query = products.where("__name__", "!=", props.id).limit(4);
-            } else if (category) {
+            if (category) {
                 query = products.where("category", "==", category);
             } else {
                 query = products;
@@ -51,62 +34,43 @@ const ItemListContainer = (props) => {
                     const arrayOfProducts = result.docs.map(doc => {
                         return { id: doc.id, ...doc.data() };
                     });
-                    if (arrayOfProducts.length === 0) {
-                        if (sameUniverse === true) {
-                            setSameUniverse(false);
-                        } else {
-                            setSameCategory(false);
-                        }
-                    } else {
-                        const sortedArrayOfProducts = sortItems(arrayOfProducts);
-                        setItems(sortedArrayOfProducts);
-                        setLoaded(true);
-                    }
+                    const sortedArrayOfProducts = sortItems(arrayOfProducts);
+                    setItems(sortedArrayOfProducts);
+                    setLoaded(true);
                 })
                 .catch((error) => {
                     console.error(error);
                 })
         }
         getProducts();
-    }, [category, id, props.id, sameUniverse, sameCategory]);
+        console.log("gello");
+    }, [category]);
 
-    useEffect(() => {
-        const sortedArrayOfProducts = sortItems(filterOn ? [...filteredItems] : [...items]);
-        filterOn ? setFilteredItems([...sortedArrayOfProducts]) : setItems([...sortedArrayOfProducts]);
-    }, [sortBy]);
+    const sortItems = (array) => {
+        let sortedArray = [...array];
+        sortedArray.sort(function (a, b) {
+            if (sortBy === "newest") {
+                return new Date(b.release.toDate()) - new Date(a.release.toDate());
+            } else if (sortBy === "oldest") {
+                return new Date(a.release.toDate()) - new Date(b.release.toDate());
+            } else if (sortBy === "a-z") {
+                return a.title.localeCompare(b.title);
+            } else if (sortBy === "z-a") {
+                return b.title.localeCompare(a.title);
+            } else if (sortBy === "price-low-high") {
+                return a.price - b.price;
+            } else if (sortBy === "price-high-low") {
+                return b.price - a.price;
+            }
+        });
+        return sortedArray;
+    };
 
     useEffect(() => {
         setFilterOn(false);
         setSelectedUniverses([]);
     }, [category]);
 
-
-
-    const sortItems = (array) => {
-        let sortedArray = [...array];
-        sortedArray.sort(function (a, b) {
-            if (sortBy === "newest") {
-                console.log("newest");
-                return new Date(b.release.toDate()) - new Date(a.release.toDate());
-            } else if (sortBy === "oldest") {
-                console.log("oldest");
-                return new Date(a.release.toDate()) - new Date(b.release.toDate());
-            } else if (sortBy === "a-z") {
-                console.log("a-z");
-                return a.title.localeCompare(b.title);
-            } else if (sortBy === "z-a") {
-                console.log("z-a");
-                return b.title.localeCompare(a.title);
-            } else if (sortBy === "price-low-high") {
-                console.log("price-low-high");
-                return a.price - b.price;
-            } else if (sortBy === "price-high-low") {
-                console.log("price-high-low");
-                return b.price - a.price;
-            }
-        });
-        return sortedArray;
-    }
 
     // UNIVERSE FILTER
     const [universes, setUniverses] = useState([]);
@@ -126,20 +90,17 @@ const ItemListContainer = (props) => {
 
     useEffect(() => {
         if (selectedUniverses.length) {
-            console.log("filter is on");
             const copyOfItems = [...items];
-            const newItemsSelected = []
+            const newItemsSelected = [];
             copyOfItems.forEach(item => {
                 if (selectedUniverses.includes(item.universe)) {
                     newItemsSelected.push(item);
                 }
             })
-            console.log(newItemsSelected);
             setFilterOn(true);
             setFilteredItems(newItemsSelected);
         } else {
             setFilterOn(false);
-            console.log("filter is off");
         }
     }, [selectedUniverses]);
 
@@ -151,37 +112,38 @@ const ItemListContainer = (props) => {
         const universeClicked = event.target.name;
         const copyOfSelectedUniverses = [...selectedUniverses];
         if (selectedUniverses.includes(universeClicked)) {
-            console.log("sí estoy");
             copyOfSelectedUniverses.splice(copyOfSelectedUniverses.indexOf(universeClicked), 1)
         } else {
-            console.log("no estoy");
             copyOfSelectedUniverses.push(universeClicked);
         }
         copyOfSelectedUniverses.sort(function (a, b) {
             return a.localeCompare(b)
         });
         setSelectedUniverses(copyOfSelectedUniverses);
-        console.log(copyOfSelectedUniverses);
     }
 
     useEffect(() => {
-        setNumberOfItems(filterOn ? filteredItems.length : items.length)
-     }, [items, filteredItems]);
+        setNumberOfItems(filterOn ? filteredItems.length : items.length);
+    }, [items, filteredItems, filterOn]);
+
+    useEffect(() => {
+        const sortedArrayOfProducts = sortItems(filterOn ? [...filteredItems] : [...items]);
+        filterOn ? setFilteredItems([...sortedArrayOfProducts]) : setItems([...sortedArrayOfProducts]);
+    }, [sortBy]);
 
     return (
         <div className="product-container">
-            {props.useUniverseFilter && <UniverseFilter
+            <UniverseFilter
                 universes={universes}
                 handleUniverseChange={handleUniverseChange}
                 clearUniverseSelection={clearUniverseSelection}
                 selectedUniverses={selectedUniverses}
-            />}
+            />
             <div className="item-list-container">
-                {props.sortBy &&
-                    <SortBy
-                        handleSortByChange={handleSortByChange}
-                        numberOfItems={loaded ? numberOfItems : 0}
-                    />}
+                <SortBy
+                    handleSortByChange={handleSortByChange}
+                    numberOfItems={loaded ? numberOfItems : 0}
+                />
                 {loaded ? (
                     <ItemList
                         items={filterOn ? filteredItems : items}

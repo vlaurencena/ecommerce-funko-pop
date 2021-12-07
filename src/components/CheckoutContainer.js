@@ -1,5 +1,5 @@
 import CheckoutForm from "./CheckoutForm";
-import CartListContainer from "./CartListContainer";
+import CheckoutProductsList from "./CheckoutProductsList";
 import { context } from "../context/CartContext";
 import { useState, useEffect, useContext, useRef } from "react";
 import { Redirect, useHistory } from "react-router-dom";
@@ -20,10 +20,8 @@ const CheckoutContainer = () => {
     });
 
     const [order, setOrder] = useState([]);
-
     const [submit, setSubmit] = useState(false);
 
-    const [firstRender, setFirstRender] = useState(true);
 
     const handleFormChange = (event) => {
         const name = event.target.name;
@@ -42,11 +40,9 @@ const CheckoutContainer = () => {
                 quantity: item.quantity,
             }]
         );
-    })
+    });
 
-    console.log(items);
-
-    const handleSubmit = (event) => {
+    const handleSubmit = () => {
         setOrder(
             [{
                 buyer: buyer,
@@ -62,7 +58,10 @@ const CheckoutContainer = () => {
     const buyerName = useRef();
     const orderId = useRef();
 
+    const [firstRender, setFirstRender] = useState(true);
+
     useEffect(() => {
+     
         if (!firstRender) {
             firestore.collection("orders").add({ ...order })
                 .then(docRef => {
@@ -83,12 +82,12 @@ const CheckoutContainer = () => {
                 });
         }
         setFirstRender(false);
-    }, [order])
+    }, [order]);
 
 
     return (
         <>
-            <div className="flex-1 checkout-container">
+            <div className="flex-1 checkout-container max-width-1400">
                 <CheckoutForm
                     handleFormChange={handleFormChange}
                     handleSubmit={handleSubmit}
@@ -98,7 +97,7 @@ const CheckoutContainer = () => {
                     tel={buyer.tel}
                     comments={buyer.comments}
                 />
-                <CartListContainer />
+                <CheckoutProductsList />
             </div>
             {submit === true && <Redirect to={history}
             />}

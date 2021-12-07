@@ -10,8 +10,8 @@ const ThankYou = () => {
     const [seconds, setSeconds] = useState(60);
 
     useEffect(() => {
-        // seconds > 0 && setTimeout(() => setSeconds(seconds - 1), 1000);
-        // seconds === 0 && setRedirect(true);
+        seconds > 0 && setTimeout(() => setSeconds(seconds - 1), 1000);
+        seconds === 0 && setRedirect(true);
     }, [seconds]);
 
 
@@ -45,7 +45,7 @@ const ThankYou = () => {
                     <span className="tooltip">{location.state.orderId}
                     <span className={`tooltiptext ${tooltipOn && `tooltiptext-visible`}`}>Copied to clipboard.</span>
                     </span>.
-                    <span onClick={handleClick} class="material-icons">
+                    <span onClick={handleClick} className="material-icons icon-copy-clipboard">
                         content_copy
                     </span>
                 </p>

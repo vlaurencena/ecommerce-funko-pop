@@ -34,14 +34,11 @@ const CustomProvider = ({ children }) => {
 
     const addProduct = (productId, quantity) => {
         if (isInCart(productId) === false) {
-            console.log("NO ESTOY EN EL CART");
             const NEW_PRODUCT = products.filter(product => product.id === productId);
             const CLONED_NEW_PRODUCT = Object.assign({}, ...NEW_PRODUCT);
             CLONED_NEW_PRODUCT.quantity = quantity;
             setCart([...cart, CLONED_NEW_PRODUCT]);
-
         } else {
-            console.log("SÍ ESTOY EN EL CART");
             let updatedCart = cart.map(product => {
                 if (product.id === productId) {
                     return { ...product, quantity: product.quantity + quantity };

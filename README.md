@@ -8,6 +8,8 @@ It is an ecommerce dedicated to selling Funko Pop dolls. The products are classi
 * CSS
 * JavaScript
 * React
+* React Router DOM: I chose to work with this components library to work with dynamic routing.
+* Firebase: I decided to work with this service because this project did not have too many requirements and Firebase provides a quick and easy way to create a database.
 ## Project preview
 ![](project-preview.gif)
 

@@ -14,21 +14,21 @@ const Item = (props) => {
     }
 
     return (
-        <div className="Item-card">
-            {props.new && <span className="Item-card__new Item-card__flag">NEW</span>}
-            <a className="Item-card__item-link"
+        <div className="item-card">
+            {props.new && <span className="item-card__new item-card__flag">NEW</span>}
+            <a className="item-card__item-link"
                 href={itemLink}
             >
                 <img
-                    className="Item-card__img"
+                    className="item-card__img"
                     src={imageUrl} alt={`${props.title} funko pop`}
                     onMouseOver={handleMouseOver}
                     onMouseOut={handleMouseOut}
                 />
             </a>
-            <a className="Item-card__item-link Item-card__title" href={itemLink}>{props.title}</a>
-            <div className="Item-card__price">${props.price.toFixed(2)}</div>
-            <Link to={itemLink} className="Item-card__detail-link">See details</Link>
+            <a className="item-card__item-link item-card__title" href={itemLink}>{props.title}</a>
+            <div className="item-card__price">${props.price.toFixed(2)}</div>
+            <Link to={itemLink} className="item-card__detail-link">See details</Link>
         </div >
     )
 }

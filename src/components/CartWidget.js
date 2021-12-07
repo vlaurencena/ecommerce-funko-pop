@@ -7,9 +7,8 @@ import CartWidgetHover from "./CartWidgetHover";
 const CartWidget = () => {
 
     const { cartTotal } = useContext(context);
-
     const [hovered, setHovered] = useState(false);
-
+    
     const handleMouseEnter = () => {
         cartTotal !== 0 && setHovered(true);
     }
@@ -26,11 +25,11 @@ const CartWidget = () => {
                 </span>
                 {cartTotal > 0 ? <div className="cart-number-container"><span>{cartTotal}</span></div> : null}
             </Link>
-            <CartWidgetHover
-                hovered={hovered}
-                handleMouseEnter={handleMouseEnter}
-                handleMouseLeave={handleMouseLeave}
-            />
+            {cartTotal !== 0 && <CartWidgetHover
+                    hovered={hovered}
+                    handleMouseEnter={handleMouseEnter}
+                    handleMouseLeave={handleMouseLeave}
+                />}
         </>
     )
 }

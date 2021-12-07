@@ -21,24 +21,23 @@ const ItemDetail = (props) => {
   const onAdd = () => {
     itemCount !== 0 && addProduct(props.id, itemCount);
     itemCount !== 0 && setOnCart(true);
-    setOnCart(true);
+    setItemCount(0);
   }
 
 
   return (
-    <>
-      <div className="ItemDetail-image-container">
+    <div className="item-detail-description">
+      <div className="item-detail-description__image">
         <img
           src={`/media/products/${props.img}main.jpg`}
           alt={`${props.title} funko pop`}
         />
       </div>
-      <div className="ItemDetail-info-container">
-        <h1 className="ItemDetail-info-container__title">{props.title}</h1>
-        <h3>More from the same universe</h3>
-        <p>${props.price}</p>
-        <ul className="ItemDetail-info-container__about">
-          <p>About this item</p>
+      <div className="item-detail-description__info">
+        <h1>{props.title}</h1>
+        <h2>${props.price}</h2>
+        <ul className="item-detail-description__about">
+          <p>About this item:</p>
           {props.about.map((info) => {
             return <li key={props.about.indexOf(info)}>{info}</li>
           })}
@@ -50,11 +49,11 @@ const ItemDetail = (props) => {
           itemCount={itemCount}
           onCart={onCart}
           stock={props.stock}
-          initial={0}          
+          initial={0}
           title={props.title}
         />
       </div>
-    </>
+    </div>
   );
 };
 

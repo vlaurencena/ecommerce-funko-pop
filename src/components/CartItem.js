@@ -14,7 +14,7 @@ const CartItem = (product) => {
             <a className="flex-center" href={`item/${product.id}`}>{product.title}</a>
             <button onClick={removeThisProduct} className="material-icons trash">delete</button>
             <div>{product.quantity}</div>
-            <div>$ {product.price * product.quantity}</div>
+            <div>$ {(product.price * product.quantity).toFixed(2)}</div>
         </div>
     )
 }
