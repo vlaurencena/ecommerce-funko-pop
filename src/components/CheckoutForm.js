@@ -13,7 +13,7 @@ const CheckoutForm = (props) => {
             <div className="checkout-form__row-two-column">
                 <div>
                     <label htmlFor="fname">First name</label>
-                    <input className="checkout-form__input" type="text" id="fname" name="fname" value={props.fname} placeholder="Your name" required/>
+                    <input className="checkout-form__input" type="text" id="fname" name="fname" value={props.fname} placeholder="Your first name" required/>
                 </div>
                 <div>
                     <label htmlFor="lname">Last name</label>

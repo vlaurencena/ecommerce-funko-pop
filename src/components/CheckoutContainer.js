@@ -1,7 +1,7 @@
 import CheckoutForm from "./CheckoutForm";
 import CheckoutProductsList from "./CheckoutProductsList";
 import { context } from "../context/CartContext";
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useContext, useRef } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import firestore from "../firebase";
 
@@ -19,7 +19,6 @@ const CheckoutContainer = () => {
         comments: "",
     });
 
-    const [order, setOrder] = useState([]);
     const [submit, setSubmit] = useState(false);
 
 
@@ -72,11 +71,6 @@ const CheckoutContainer = () => {
 
     const buyerName = useRef();
     const orderId = useRef();
-
-    const [firstRender, setFirstRender] = useState(true);
-
-
-
 
     return (
         <>

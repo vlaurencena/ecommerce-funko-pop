@@ -159,16 +159,18 @@ div.cart-widget-hover__transparent {
 
 .universe-filter {
   min-width: 300px;
-  padding: 10px;
+  padding: 0 10px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   position: inherit;
   margin-left: auto;
+  margin-top: 3rem;
 }
 
 .universe-filter__title {
-  margin: 10px 0;
+  margin-bottom: 10px;
+  font-size: 24px;
 }
 
 .universe-filter__list {

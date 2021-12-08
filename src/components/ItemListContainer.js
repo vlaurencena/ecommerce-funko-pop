@@ -43,7 +43,6 @@ const ItemListContainer = () => {
                 })
         }
         getProducts();
-        console.log("gello");
     }, [category]);
 
     const sortItems = (array) => {
@@ -61,6 +60,8 @@ const ItemListContainer = () => {
                 return a.price - b.price;
             } else if (sortBy === "price-high-low") {
                 return b.price - a.price;
+            } else {
+                return sortedArray;
             }
         });
         return sortedArray;
