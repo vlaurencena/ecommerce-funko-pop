@@ -10,12 +10,13 @@ const UniverseFilter = (props) => {
         <>
             <div className="universe-filter">
                 <p className="universe-filter__title">Filter by universe</p>
-                <ul onChange={props.handleUniverseChange} className="universe-filter__list">
+                <ul className="universe-filter__list">
                     {props.universes.map(universe => {
                         return (
                             <li key={universe} className="universe-filter__checkbox">
                                 <label htmlFor={universe}>{convertSlugToString(universe)}</label>
                                 <input
+                                    onChange={props.handleUniverseChange}
                                     id={universe}
                                     name={universe}
                                     type="checkbox"

@@ -43,27 +43,15 @@ const CheckoutContainer = () => {
     });
 
     const handleSubmit = () => {
-        setOrder(
-            [{
-                buyer: buyer,
-                items: items,
-                cartTotalItems: cartTotal,
-                cartTotalWorth: cartTotalWorth,
-                date: new Date(),
-            }]
-        );
+        const order = {
+            buyer: buyer,
+            items: items,
+            cartTotalItems: cartTotal,
+            cartTotalWorth: cartTotalWorth,
+            date: new Date(),
+        };
         buyerName.current = buyer.fname;
-    }
-
-    const buyerName = useRef();
-    const orderId = useRef();
-
-    const [firstRender, setFirstRender] = useState(true);
-
-    useEffect(() => {
-     
-        if (!firstRender) {
-            firestore.collection("orders").add({ ...order })
+        firestore.collection("orders").add({ ...order })
                 .then(docRef => {
                     orderId.current = docRef.id;
                     history.push({
@@ -80,9 +68,14 @@ const CheckoutContainer = () => {
                 .catch((error) => {
                     console.error("Error adding document: ", error);
                 });
-        }
-        setFirstRender(false);
-    }, [order]);
+    }
+
+    const buyerName = useRef();
+    const orderId = useRef();
+
+    const [firstRender, setFirstRender] = useState(true);
+
+
 
 
     return (
