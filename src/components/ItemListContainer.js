@@ -20,6 +20,7 @@ const ItemListContainer = () => {
     };
 
     useEffect(() => {
+        let cancel = false;
         const getProducts = () => {
             const products = firestore.collection("products");
             let query = null;
@@ -31,47 +32,27 @@ const ItemListContainer = () => {
             const promise = query.get();
             promise
                 .then(result => {
+                    if (cancel) return;
                     const arrayOfProducts = result.docs.map(doc => {
                         return { id: doc.id, ...doc.data() };
                     });
-                    const sortedArrayOfProducts = sortItems(arrayOfProducts);
-                    setItems(sortedArrayOfProducts);
+                    setItems(arrayOfProducts);
                     setLoaded(true);
                 })
                 .catch((error) => {
                     console.error(error);
                 })
+            return () => {
+                cancel = true;
+            }
         }
         getProducts();
     }, [category]);
-
-    const sortItems = (array) => {
-        let sortedArray = [...array];
-        sortedArray.sort(function (a, b) {
-            if (sortBy === "newest") {
-                return new Date(b.release.toDate()) - new Date(a.release.toDate());
-            } else if (sortBy === "oldest") {
-                return new Date(a.release.toDate()) - new Date(b.release.toDate());
-            } else if (sortBy === "a-z") {
-                return a.title.localeCompare(b.title);
-            } else if (sortBy === "z-a") {
-                return b.title.localeCompare(a.title);
-            } else if (sortBy === "price-low-high") {
-                return a.price - b.price;
-            } else if (sortBy === "price-high-low") {
-                return b.price - a.price;
-            } else {
-                return sortedArray;
-            }
-        });
-        return sortedArray;
-    };
 
     useEffect(() => {
         setFilterOn(false);
         setSelectedUniverses([]);
     }, [category]);
-
 
     // UNIVERSE FILTER
     const [universes, setUniverses] = useState([]);
@@ -103,7 +84,7 @@ const ItemListContainer = () => {
         } else {
             setFilterOn(false);
         }
-    }, [selectedUniverses]);
+    }, [selectedUniverses, items]);
 
     const clearUniverseSelection = () => {
         setSelectedUniverses([]);
@@ -128,9 +109,31 @@ const ItemListContainer = () => {
     }, [items, filteredItems, filterOn]);
 
     useEffect(() => {
+        const sortItems = (array) => {
+            let sortedArray = [...array];
+            sortedArray.sort(function (a, b) {
+                if (sortBy === "newest") {
+                    return new Date(b.release.toDate()) - new Date(a.release.toDate());
+                } else if (sortBy === "oldest") {
+                    return new Date(a.release.toDate()) - new Date(b.release.toDate());
+                } else if (sortBy === "a-z") {
+                    return a.title.localeCompare(b.title);
+                } else if (sortBy === "z-a") {
+                    return b.title.localeCompare(a.title);
+                } else if (sortBy === "price-low-high") {
+                    return a.price - b.price;
+                } else if (sortBy === "price-high-low") {
+                    return b.price - a.price;
+                } else {
+                    return sortedArray;
+                }
+            });
+            return sortedArray;
+        };
+
         const sortedArrayOfProducts = sortItems(filterOn ? [...filteredItems] : [...items]);
         filterOn ? setFilteredItems([...sortedArrayOfProducts]) : setItems([...sortedArrayOfProducts]);
-    }, [sortBy]);
+    }, [sortBy, filterOn]);
 
     return (
         <div className="product-container">

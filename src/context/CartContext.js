@@ -21,7 +21,6 @@ const CustomProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [cartTotal, setCartTotal] = useState(0);
     const [cartTotalWorth, setCartTotalWorth] = useState(0);
-    const [isFirstRender, setIsFirstRender] = useState(true);
 
 
     useEffect(() => {
@@ -35,14 +34,42 @@ const CustomProvider = ({ children }) => {
     }, [])
 
     useEffect(() => {
+        const sumItemsInCart = () => {
+            if (cart.length === 0 || cart === false) {
+                return 0;
+            } else {
+                let acummulator = 0;
+                cart.forEach(element => {
+                    acummulator += element.quantity;
+                });
+                return acummulator;
+            };
+        }
+    
+        const sumTotalCartWorth = () => {
+            if (cart.length === 0 || cart === false) {
+                return 0;
+            } else {
+                let acummulator = 0;
+                cart.forEach(element => {
+                    acummulator += (element.quantity * element.price);
+                });
+                return acummulator.toFixed(2);
+            };
+        }
+        
         setCartTotal(sumItemsInCart());
         setCartTotalWorth(sumTotalCartWorth());
     }, [cart]);
 
     useEffect(() => {
+        const updateLSCart = () => {
+            localStorage.setItem("cart", JSON.stringify(cart));
+            localStorage.setItem("cartTotal", JSON.stringify(cartTotal));
+            localStorage.setItem("cartTotalWorth", JSON.stringify(cartTotalWorth));
+        }
         updateLSCart();
     }, [cart, cartTotal, cartTotalWorth]);
-
 
     const isInCart = (productId) => {
         return cart.some(product => product.id === productId);
@@ -74,29 +101,7 @@ const CustomProvider = ({ children }) => {
         setCart([]);
     }
 
-    const sumItemsInCart = () => {
-        if (cart.length === 0 || cart === false) {
-            return 0;
-        } else {
-            let acummulator = 0;
-            cart.forEach(element => {
-                acummulator += element.quantity;
-            });
-            return acummulator;
-        };
-    }
 
-    const sumTotalCartWorth = () => {
-        if (cart.length === 0 || cart === false) {
-            return 0;
-        } else {
-            let acummulator = 0;
-            cart.forEach(element => {
-                acummulator += (element.quantity * element.price);
-            });
-            return acummulator.toFixed(2);
-        };
-    }
 
     const context_value = {
         cart: cart,
@@ -117,14 +122,6 @@ const CustomProvider = ({ children }) => {
         setCartTotal(LSCartTotal);
         setCartTotalWorth(LSCartTotalWorth);
     }
-
-    const updateLSCart = () => {
-        localStorage.setItem("cart", JSON.stringify(cart));
-        localStorage.setItem("cartTotal", JSON.stringify(cartTotal));
-        localStorage.setItem("cartTotalWorth", JSON.stringify(cartTotalWorth));
-    }
-
-
 
     return (
         <Provider value={context_value}>

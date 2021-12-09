@@ -25,6 +25,8 @@ const CheckoutContainer = () => {
     const handleFormChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
+        console.log(event.target.name);
+        console.log(event.target.value);
         setBuyer({ ...buyer, [name]: value })
     }
 
@@ -51,22 +53,21 @@ const CheckoutContainer = () => {
         };
         buyerName.current = buyer.fname;
         firestore.collection("orders").add({ ...order })
-                .then(docRef => {
-                    orderId.current = docRef.id;
-                    history.push({
-                        pathname: "/thank-you",
-                        state: {
-                            orderId: orderId.current,
-                            buyerName: buyerName.current
-                        }
-                    });
-                    setSubmit(true);
-                    setCart([]);
-
-                })
-                .catch((error) => {
-                    console.error("Error adding document: ", error);
+            .then(docRef => {
+                orderId.current = docRef.id;
+                history.push({
+                    pathname: "/thank-you",
+                    state: {
+                        orderId: orderId.current,
+                        buyerName: buyerName.current
+                    }
                 });
+                setSubmit(true);
+                setCart([]);
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+            });
     }
 
     const buyerName = useRef();
