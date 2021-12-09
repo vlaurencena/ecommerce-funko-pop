@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useState } from "react/cjs/react.development";
 import { context } from "../context/CartContext";
@@ -16,6 +16,10 @@ const CartWidget = () => {
     const handleMouseLeave = () => {
         setHovered(false);
     }
+
+    useEffect(()=> {
+        cartTotal === 0 && setHovered(false);
+    }, [cartTotal])
 
     return (
         <>
