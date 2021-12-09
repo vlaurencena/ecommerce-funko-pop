@@ -14,19 +14,35 @@ database.then(querySnapshot => {
     }))
 });
 
-
-
-
 const { Provider } = context;
 
 const CustomProvider = ({ children }) => {
 
     const [cart, setCart] = useState([]);
+    const [cartTotal, setCartTotal] = useState(0);
+    const [cartTotalWorth, setCartTotalWorth] = useState(0);
+    const [isFirstRender, setIsFirstRender] = useState(true);
+
+
+    useEffect(() => {
+        if (localStorage.getItem("cart") === null) {
+            localStorage.setItem("cart", JSON.stringify([]));
+            localStorage.setItem("cartTotal", JSON.stringify(0));
+            localStorage.setItem("cartTotalWorth", JSON.stringify(0));
+        } else {
+            retrieveLSCart();
+        }
+    }, [])
 
     useEffect(() => {
         setCartTotal(sumItemsInCart());
         setCartTotalWorth(sumTotalCartWorth());
     }, [cart]);
+
+    useEffect(() => {
+        updateLSCart();
+    }, [cart, cartTotal, cartTotalWorth]);
+
 
     const isInCart = (productId) => {
         return cart.some(product => product.id === productId);
@@ -48,25 +64,18 @@ const CustomProvider = ({ children }) => {
             })
             setCart([...updatedCart]);
         }
-        updateLSCart();
     }
 
     const removeProduct = (productId) => {
         setCart(cart.filter(product => product.id !== productId));
-        updateLSCart();
-
     }
 
     const clearCart = () => {
         setCart([]);
-        updateLSCart();
     }
 
-
-    const [cartTotal, setCartTotal] = useState(0);
-
     const sumItemsInCart = () => {
-        if (cart.length === 0) {
+        if (cart.length === 0 || cart === false) {
             return 0;
         } else {
             let acummulator = 0;
@@ -77,10 +86,8 @@ const CustomProvider = ({ children }) => {
         };
     }
 
-    const [cartTotalWorth, setCartTotalWorth] = useState(0);
-
     const sumTotalCartWorth = () => {
-        if (cart.length === 0) {
+        if (cart.length === 0 || cart === false) {
             return 0;
         } else {
             let acummulator = 0;
@@ -102,11 +109,6 @@ const CustomProvider = ({ children }) => {
         isInCart: isInCart
     }
 
-    useEffect(() => {
-        const checkLSCartTotal = JSON.parse(localStorage.getItem("cartTotal"));
-        checkLSCartTotal !== 0 && retrieveLSCart();
-    }, []);
-
     const retrieveLSCart = () => {
         const LSCartTotal = JSON.parse(localStorage.getItem("cartTotal"));
         const LSCart = JSON.parse(localStorage.getItem("cart"));
@@ -122,12 +124,7 @@ const CustomProvider = ({ children }) => {
         localStorage.setItem("cartTotalWorth", JSON.stringify(cartTotalWorth));
     }
 
-    const [firstRender, setFirstRender] = useState(false);
-    
-    useEffect(() => {
-        firstRender && updateLSCart();
-        setFirstRender(true);
-    }, [cart, cartTotal, cartTotalWorth]);
+
 
     return (
         <Provider value={context_value}>
