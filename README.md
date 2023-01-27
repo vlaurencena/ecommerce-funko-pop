@@ -1,6 +1,4 @@
 # Ecommerce for Funko Pop collectible toys
-## Links
-[Repository](https://github.com/vlaurencena/react-app-victor-laurencena) | [Contact](mailto:victorlaurencena@gmail.com) | [Live version](https://funko-town.herokuapp.com/)
 ## Description
 It is an ecommerce dedicated to selling Funko Pop dolls. The products are classified according to category and "universe" to which the figure belongs to. 
 ## Built with
