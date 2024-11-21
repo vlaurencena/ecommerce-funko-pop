@@ -1,34 +1,52 @@
-# Ecommerce for Funko Pop collectible toys
+# Ecommerce for Funko Pop Collectible Toys
+
+![Project Preview](project-preview.gif)
+
 ## Description
-It is an ecommerce dedicated to selling Funko Pop dolls. The products are classified according to category and "universe" to which the figure belongs to. 
-## Built with
-* HTML.
-* CSS.
-* JavaScript.
-* React.
-* React Router DOM: I chose to work with this components library to work with dynamic routing.
-* Firebase: I decided to work with this service because this project did not have too many requirements and Firebase provides a quick and easy way to create a database.
-## Project preview
-![](project-preview.gif)
+This is an ecommerce platform dedicated to selling Funko Pop collectible figures. The products are organized into categories and "universes," helping users easily navigate through various collections of Funko Pops.
+
+## Built With
+- **HTML**: For the basic structure of the website.
+- **CSS**: To style the website and layout the components.
+- **JavaScript**: To handle the interactivity and logic of the site.
+- **React**: A powerful library for building user interfaces, used to build the entire frontend of the application.
+- **React Router DOM**: Chosen for handling dynamic routing and enabling navigation between different views without reloading the page.
+- **Firebase**: Selected for its simplicity and ease of use, Firebase provides a quick solution to manage a backend database without complex setup.
+
 
 ## Installation and Setup Instructions
-Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
+Follow these steps to get the project up and running on your local machine:
 
-Installation:
+1. Clone this repository:
 
-`npm install`  
+   ```bash
+   git clone https://github.com/vlaurencena/ecommerce-funko-pop
+   ```
 
-To Run Test Suite:  
+2. Navigate to the project's directory:
 
-`npm test`  
+    ```bash
+    cd ecommerce-funko-pop
+    ```
 
-To Start Server:
+3. Install the necessary dependencies:
 
-`npm start`  
+   ```bash
+   npm install
+   ```
 
-To Visit App:
+4. To start the development server:
 
-`localhost:3000/`  
-## Extra Info
-  - This was a 7 week long project built during the React Js course dictated by Coderhouse. Project goals included using the technologies learned during the course and familiarizing myself with React's features.
-  - It is not meant to be responsive or aesthetic, as it's main focus was to implement React.
+   ```bash
+   npm start
+   ```
+
+5. Open your browser and visit:
+
+   ```bash
+   localhost:3000/
+   ```
+
+## Additional Information
+- This project was developed over a 7-week period during the React JS course at Coderhouse. The primary goal was to apply the technologies learned during the course and become familiar with React’s core features.
+- Please note that this project is not optimized for responsiveness or aesthetics. The main focus was on implementing React components and functionalities.
