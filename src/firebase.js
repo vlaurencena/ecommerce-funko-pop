@@ -1,10 +1,9 @@
-// Import the functions you need from the SDKs you need
-import firebase from "firebase/app";
+// firebase.js
 
-// Add SDKs for Firebase products that you want to use
-import "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration
+// Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBv_g5U1yC9iWTDD1YieUjQW2IdpVFsVJw",
     authDomain: "funko-town.firebaseapp.com",
@@ -14,11 +13,9 @@ const firebaseConfig = {
     appId: "1:975260509707:web:305215abff986746ad490e"
 };
 
-// Log and Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const firestore = getFirestore(app); // Correctly export Firestore
+//firestore.firestore().settings({ experimentalForceLongPolling: true })
 
-// Get database
-const firestore = firebase.firestore(app);
-
-// Export database
-export default firestore;
+export { firestore };

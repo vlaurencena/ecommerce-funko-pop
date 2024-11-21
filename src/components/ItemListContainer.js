@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import ItemList from "./ItemList";
 import SortBy from "./SortBy";
-import firestore from "../firebase";
+import { firestore } from "../firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import UniverseFilter from "./UniverseFilter";
 import LoadingSpinner from "./LoadingSpinner";
 
@@ -21,32 +22,35 @@ const ItemListContainer = () => {
 
     useEffect(() => {
         let cancel = false;
-        const getProducts = () => {
-            const products = firestore.collection("products");
-            let query = null;
-            if (category) {
-                query = products.where("category", "==", category);
-            } else {
-                query = products;
+        const getProducts = async () => {
+            try {
+                const productsRef = collection(firestore, "products");
+                let q = query(productsRef); // Default query without any filters
+
+                if (category && category.trim()) {
+                    q = query(productsRef, where("category", "==", category)); // Adding category filter
+                }
+
+                //const querySnapshot = await getDocs(q);
+                const querySnapshot = await getDocs(productsRef);
+                if (cancel) return;
+
+                const arrayOfProducts = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                setItems(arrayOfProducts);
+                setLoaded(true);
+            } catch (error) {
+                console.error("Error fetching products:", error);
             }
-            const promise = query.get();
-            promise
-                .then(result => {
-                    if (cancel) return;
-                    const arrayOfProducts = result.docs.map(doc => {
-                        return { id: doc.id, ...doc.data() };
-                    });
-                    setItems(arrayOfProducts);
-                    setLoaded(true);
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-            return () => {
-                cancel = true;
-            }
-        }
+        };
+
         getProducts();
+
+        return () => {
+            cancel = true;
+        };
     }, [category]);
 
     useEffect(() => {
@@ -63,22 +67,14 @@ const ItemListContainer = () => {
     useEffect(() => {
         const getAllUniverses = () => {
             const universesMapping = items.map(item => item.universe);
-            return [...new Set(universesMapping)].sort(function (a, b) {
-                return a.localeCompare(b)
-            });
-        }
+            return [...new Set(universesMapping)].sort((a, b) => a.localeCompare(b));
+        };
         setUniverses(getAllUniverses());
     }, [items]);
 
     useEffect(() => {
         if (selectedUniverses.length) {
-            const copyOfItems = [...items];
-            const newItemsSelected = [];
-            copyOfItems.forEach(item => {
-                if (selectedUniverses.includes(item.universe)) {
-                    newItemsSelected.push(item);
-                }
-            })
+            const newItemsSelected = items.filter(item => selectedUniverses.includes(item.universe));
             setFilterOn(true);
             setFilteredItems(newItemsSelected);
         } else {
@@ -88,21 +84,20 @@ const ItemListContainer = () => {
 
     const clearUniverseSelection = () => {
         setSelectedUniverses([]);
-    }
+    };
 
     const handleUniverseChange = (event) => {
         const universeClicked = event.target.name;
-        const copyOfSelectedUniverses = [...selectedUniverses];
-        if (selectedUniverses.includes(universeClicked)) {
-            copyOfSelectedUniverses.splice(copyOfSelectedUniverses.indexOf(universeClicked), 1)
-        } else {
-            copyOfSelectedUniverses.push(universeClicked);
-        }
-        copyOfSelectedUniverses.sort(function (a, b) {
-            return a.localeCompare(b)
+        setSelectedUniverses((prevSelected) => {
+            const updatedSelected = [...prevSelected];
+            if (updatedSelected.includes(universeClicked)) {
+                updatedSelected.splice(updatedSelected.indexOf(universeClicked), 1);
+            } else {
+                updatedSelected.push(universeClicked);
+            }
+            return updatedSelected.sort((a, b) => a.localeCompare(b));
         });
-        setSelectedUniverses(copyOfSelectedUniverses);
-    }
+    };
 
     useEffect(() => {
         setNumberOfItems(filterOn ? filteredItems.length : items.length);
@@ -111,7 +106,7 @@ const ItemListContainer = () => {
     useEffect(() => {
         const sortItems = (array) => {
             let sortedArray = [...array];
-            sortedArray.sort(function (a, b) {
+            sortedArray.sort((a, b) => {
                 if (sortBy === "newest") {
                     return new Date(b.release.toDate()) - new Date(a.release.toDate());
                 } else if (sortBy === "oldest") {
@@ -124,9 +119,8 @@ const ItemListContainer = () => {
                     return a.price - b.price;
                 } else if (sortBy === "price-high-low") {
                     return b.price - a.price;
-                } else {
-                    return sortedArray;
                 }
+                return 0;
             });
             return sortedArray;
         };
@@ -157,8 +151,7 @@ const ItemListContainer = () => {
                 }
             </div>
         </div>
-    )
-    // }
-}
+    );
+};
 
 export default ItemListContainer;

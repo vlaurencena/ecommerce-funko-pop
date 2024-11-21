@@ -1,18 +1,10 @@
 import { createContext, useState, useEffect } from "react";
-import firestore from "../firebase";
+import { firestore } from "../firebase"; // Ensure firestore is exported from firebase.js
+import { collection, getDocs, getFirestore } from "firebase/firestore"; // Import necessary functions
 
 const context = createContext();
 
 let products = [];
-
-const database = firestore.collection("products").get();
-
-database.then(querySnapshot => {
-    products = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-    }))
-});
 
 const { Provider } = context;
 
@@ -22,6 +14,23 @@ const CustomProvider = ({ children }) => {
     const [cartTotal, setCartTotal] = useState(0);
     const [cartTotalWorth, setCartTotalWorth] = useState(0);
 
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const db = firestore; // Ensure you get the Firestore instance from firebase
+                const productsCollection = collection(db, "products");
+                const querySnapshot = await getDocs(productsCollection);
+                products = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data(),
+                }));
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        };
+        fetchProducts();
+    }, []);
+    
 
     useEffect(() => {
         if (localStorage.getItem("cart") === null) {
@@ -45,7 +54,7 @@ const CustomProvider = ({ children }) => {
                 return acummulator;
             };
         }
-    
+
         const sumTotalCartWorth = () => {
             if (cart.length === 0 || cart === false) {
                 return 0;
@@ -57,7 +66,7 @@ const CustomProvider = ({ children }) => {
                 return acummulator.toFixed(2);
             };
         }
-        
+
         setCartTotal(sumItemsInCart());
         setCartTotalWorth(sumTotalCartWorth());
     }, [cart]);
@@ -77,10 +86,12 @@ const CustomProvider = ({ children }) => {
 
     const addProduct = (productId, quantity) => {
         if (isInCart(productId) === false) {
-            const NEW_PRODUCT = products.filter(product => product.id === productId);
-            const CLONED_NEW_PRODUCT = Object.assign({}, ...NEW_PRODUCT);
-            CLONED_NEW_PRODUCT.quantity = quantity;
-            setCart([...cart, CLONED_NEW_PRODUCT]);
+            const productToAdd = products.find(product => product.id === productId);
+            if (!productToAdd) {
+                console.error("Product not found!");
+                return;
+            }
+            setCart([...cart, { ...productToAdd, quantity }]);
         } else {
             let updatedCart = cart.map(product => {
                 if (product.id === productId) {
@@ -100,8 +111,6 @@ const CustomProvider = ({ children }) => {
     const clearCart = () => {
         setCart([]);
     }
-
-
 
     const context_value = {
         cart: cart,

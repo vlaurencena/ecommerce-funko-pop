@@ -3,7 +3,7 @@ import CheckoutProductsList from "./CheckoutProductsList";
 import { context } from "../context/CartContext";
 import { useState, useContext, useRef } from "react";
 import { Redirect, useHistory } from "react-router-dom";
-import firestore from "../firebase";
+import { firestore } from "../firebase"; // Ensure firestore is exported from firebase.js
 
 const CheckoutContainer = () => {
 

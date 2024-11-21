@@ -1,9 +1,10 @@
 import ItemDetail from "./ItemDetail";
 import { useParams } from 'react-router-dom';
-import firestore from "../firebase";
+import { firestore } from "../firebase";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
 import RelatedProductsContainer from "./RelatedProductsContainer";
+import { collection, getDocs, getFirestore, query, where } from "firebase/firestore"; // Import necessary functions
 
 const ItemDetailContainer = () => {
 
@@ -12,27 +13,26 @@ const ItemDetailContainer = () => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-
-    (() => {
-
-      firestore
-        .collection("products")
-        .where("__name__", "==", id)
-        .get()
-        .then((querySnapshot) => {
-          const item = querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          setSelectedItem(...item);
-          window.scrollTo(0, 0);
-          setLoaded(true);
-        })
-        .catch(() => {
-          console.error("Error!");
-        })
-    })()
-
+    const fetchItem = async () => {
+      try {
+        const productsRef = collection(firestore, "products");
+        const q = query(productsRef, where("__name__", "==", id));
+  
+        const querySnapshot = await getDocs(q);
+        const item = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+  
+        setSelectedItem(item[0]); // Use item[0] to get the first element if there's only one
+        window.scrollTo(0, 0);
+        setLoaded(true);
+      } catch (error) {
+        console.error("Error!", error);
+      }
+    };
+  
+    fetchItem();
   }, [id]);
 
   if (loaded === false) {
